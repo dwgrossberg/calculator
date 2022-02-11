@@ -42,15 +42,28 @@ const seven = document.getElementById('seven');
 const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
 
-let operatorButtons = [divide, multiply, minus, plus, equal]
-
 let numberButtons = [decimal, zero, one, two, three, four, five, six, seven, eight, nine];
-
-numberButtons.forEach(button => button.addEventListener('click', () => {
-    displayText.innerText = displayText.innerText + button.innerText;
-}));
 
 clear.addEventListener('click', () => displayText.innerText = '');
 
+backspace.addEventListener('click', () => {
+    let lastIndex = displayText.innerText.length;
+    displayText.innerText = displayText.innerText.substring(0, lastIndex - 1);
+    return console.log(Number(displayText.innerText));
+})
+
+numberButtons.forEach(button => button.addEventListener('click', () => {
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+        displayText.innerText = '';
+    }
+    displayText.innerText = displayText.innerText + button.innerText;
+    return console.log(Number(displayText.innerText));
+}));
 
 
+divide.addEventListener('click', () => {
+    let minuend = Number(displayText.innerText);
+    let subtrahend;
+    displayText.innerText = '÷';
+
+});
