@@ -4,6 +4,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lato&family=Lobster+Two&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Lobster+Two&family=Orbitron&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
         <title>Calculator</title>
@@ -34,36 +37,38 @@
                         <div></div> 
                         <div></div> 
                     </div>
-                    <div class="display"></div>
+                    <div class="display">
+                        <p id="displayText"></p>
+                    </div>
                 </div>
                 <div class="clearDelete">
                     <button type="button" id="clear">Clear</button>
-                    <button type="button" id="delete">Delete</button>
+                    <button type="button" id="backspace">Delete</button>
                 </div>
                 <div class="containerBottom">
                     <div class="row3">
-                        <button type="button" id="7">7</button>
-                        <button type="button" id="8">8</button>
-                        <button type="button" id="9">9</button>
-                        <button type="button" id="/">÷</button>
+                        <button type="button" id="seven">7</button>
+                        <button type="button" id="eight">8</button>
+                        <button type="button" id="nine">9</button>
+                        <button type="button" id="divide">÷</button>
                     </div>
                     <div class="row2">
-                        <button type="button" id="4">4</button>
-                        <button type="button" id="5">5</button>
-                        <button type="button" id="6">6</button>
-                        <button type="button" id="x">x</button>
+                        <button type="button" id="four">4</button>
+                        <button type="button" id="five">5</button>
+                        <button type="button" id="six">6</button>
+                        <button type="button" id="multiply">x</button>
                     </div>
                     <div class="row1">
-                        <button type="button" id="1">1</button>
-                        <button type="button" id="2">2</button>
-                        <button type="button" id="3">3</button>
-                        <button type="button" id="-">-</button>
+                        <button type="button" id="one">1</button>
+                        <button type="button" id="two">2</button>
+                        <button type="button" id="three">3</button>
+                        <button type="button" id="minus">-</button>
                     </div>
                     <div class="row0">
-                        <button type="button" id="0">0</button>
-                        <button type="button" id=".">.</button>
-                        <button type="button" id="=">=</button>
-                        <button type="button" id="+">+</button>
+                        <button type="button" id="zero">0</button>
+                        <button type="button" id="decimal">.</button>
+                        <button type="button" id="equal">=</button>
+                        <button type="button" id="plus">+</button>
                     </div>
                 </div>
             </div>
