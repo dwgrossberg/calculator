@@ -23,6 +23,7 @@ let displayValue = []; //empty array set up to hold ongoing calculator values
 
 let numberButtons = [decimal, zero, one, two, three, four, five, six, seven, eight, nine];
 
+let operatorButtons = [divide, multiply, minus, plus, equal];
 
 //Basic math operator functions
 function adds(a, b) {
@@ -41,6 +42,10 @@ function divides(a, b) {
     return a / b;
 }
 
+function isFloat(n) {
+    return Number(n) === n && n % 1 !== 0; //Check to see whether number is floating point or not
+}
+
 //Operate function
 function operates() {
     console.log(displayValue);
@@ -48,15 +53,18 @@ function operates() {
     console.log(newValue);
     displayValue = [];
     displayText.innerText = '';
-    if (newValue % 2) {
-        displayText.innerText = newValue;
+    if (isFloat(newValue)) {
+        let roundedValue = newValue.toFixed(2);
+        displayText.innerText = roundedValue
+        if (roundedValue.toString().length > 10) {
+            displayText.innerText = 'error';
+        }
     } else {
-        displayText.innerText = newValue.toFixed(2);
+        displayText.innerText = newValue;
 }
 }
 
 //Populate display when number buttons are clicked
-
 clear.addEventListener('click', () => {
     displayText.innerText = '';
     displayValue = [];
@@ -65,17 +73,18 @@ clear.addEventListener('click', () => {
 backspace.addEventListener('click', () => {
     let lastIndex = displayText.innerText.length;
     displayText.innerText = displayText.innerText.substring(0, lastIndex - 1);
-    return console.log(Number(displayText.innerText));
+    console.log(Number(displayText.innerText));
 })
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
         displayText.innerText = '';
     }
-    displayText.innerText = displayText.innerText + button.innerText;
-    return console.log(Number(displayText.innerText));
+    if (displayText.innerText.length < 10) {
+        displayText.innerText = displayText.innerText + button.innerText;
+        console.log(Number(displayText.innerText));
+    }
 }));
-
 
 divide.addEventListener('click', () => {
     displayValue[displayValue.length] = divides;
