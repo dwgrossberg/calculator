@@ -1,26 +1,4 @@
-//Basic math operator functions
-function adds(a, b) {
-    return a + b;
-}
-
-function subtracts(a, b) {
-    return a - b;
-}
-
-function multiplies(a, b) {
-    return a * b;
-}
-
-function divides(a, b) {
-    return a / b;
-}
-
-//Operate function
-function operates(operator, a, b) {
-    return operator(a, b);
-}
-
-//Populate display when number buttons are clicked
+//Variables
 const display = document.getElementsByClassName('display');
 const displayText = document.getElementById('displayText');
 const clear = document.getElementById('clear');
@@ -41,10 +19,48 @@ const six = document.getElementById('six');
 const seven = document.getElementById('seven');
 const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
+let displayValue = []; //empty array set up to hold ongoing calculator values
 
 let numberButtons = [decimal, zero, one, two, three, four, five, six, seven, eight, nine];
 
-clear.addEventListener('click', () => displayText.innerText = '');
+
+//Basic math operator functions
+function adds(a, b) {
+    return a + b;
+}
+
+function subtracts(a, b) {
+    return a - b;
+}
+
+function multiplies(a, b) {
+    return a * b;
+}
+
+function divides(a, b) {
+    return a / b;
+}
+
+//Operate function
+function operates() {
+    console.log(displayValue);
+    let newValue = displayValue[0](displayValue[1], displayValue[2]);
+    console.log(newValue);
+    displayValue = [];
+    displayText.innerText = '';
+    if (newValue % 2) {
+        displayText.innerText = newValue;
+    } else {
+        displayText.innerText = newValue.toFixed(2);
+}
+}
+
+//Populate display when number buttons are clicked
+
+clear.addEventListener('click', () => {
+    displayText.innerText = '';
+    displayValue = [];
+});
 
 backspace.addEventListener('click', () => {
     let lastIndex = displayText.innerText.length;
@@ -62,8 +78,12 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 
 
 divide.addEventListener('click', () => {
-    let minuend = Number(displayText.innerText);
-    let subtrahend;
+    displayValue[displayValue.length] = divides;
+    displayValue[displayValue.length] = Number(displayText.innerText);
     displayText.innerText = '÷';
-
 });
+
+equal.addEventListener('click', () => {
+    displayValue[displayValue.length] = Number(displayText.innerText);
+    operates();
+})
