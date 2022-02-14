@@ -86,13 +86,30 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
     }
 }));
 
-divide.addEventListener('click', () => {
-    displayValue[displayValue.length] = divides;
-    displayValue[displayValue.length] = Number(displayText.innerText);
-    displayText.innerText = '÷';
-});
-
-equal.addEventListener('click', () => {
-    displayValue[displayValue.length] = Number(displayText.innerText);
-    operates();
-})
+//Operator populator
+operatorButtons.forEach(button => button.addEventListener('click', () => {
+    if (button.id === 'divide') {
+        displayValue[displayValue.length] = divides;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '÷';
+    }
+    if (button.id === 'multiply') {
+        displayValue[displayValue.length] = multiplies;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = 'x';
+    }
+    if (button.id === 'minus') {
+        displayValue[displayValue.length] = subtracts;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '-';
+    } 
+    if (button.id === 'plus') {
+        displayValue[displayValue.length] = adds;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '+';
+    }
+    if (button.id === 'equal') {
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        operates();
+    }
+}));
