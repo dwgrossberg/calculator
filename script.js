@@ -48,19 +48,24 @@ function isFloat(n) {
 
 //Operate function
 function operates() {
-    console.log(displayValue);
     let newValue = displayValue[0](displayValue[1], displayValue[2]);
+    console.log(displayValue);
     console.log(newValue);
     displayValue = [];
     displayText.innerText = '';
     if (isFloat(newValue)) {
         let roundedValue = newValue.toFixed(2);
-        displayText.innerText = roundedValue
         if (roundedValue.toString().length > 10) {
-            displayText.innerText = 'error';
+            displayText.innerText = 'error'; //handling numbers that are too large for the display
+        } else {
+        displayText.innerText = roundedValue;
         }
     } else {
+        if (newValue.toString().length > 10) {
+            displayText.innerText = 'error';
+        } else {
         displayText.innerText = newValue;
+        }
 }
 }
 
@@ -87,6 +92,37 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 //Operator populator
+operatorButtons.forEach(button => button.addEventListener('click', () => {
+    if (button.id === 'divide') {
+        preEquate();
+        displayValue[displayValue.length] = divides;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '÷';
+    } else if (button.id === 'multiply') {
+        preEquate();
+        displayValue[displayValue.length] = multiplies;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = 'x';
+    } else if (button.id === 'minus') {
+        preEquate();
+        displayValue[displayValue.length] = subtracts;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '-';
+    } else if (button.id === 'plus') {
+        preEquate();
+        displayValue[displayValue.length] = adds;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '+';
+    } else if (button.id === 'equal') {
+        if (errorSkip()) {
+            return displayValue = [];
+        } else {
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            operates();
+        }
+    }
+}));
+
 function preEquate() {
     if (displayValue.length > 0) {
         displayValue[displayValue.length] = Number(displayText.innerText);
@@ -94,33 +130,9 @@ function preEquate() {
     }
 }
 
-operatorButtons.forEach(button => button.addEventListener('click', () => {
-    if (button.id === 'divide') {
-        preEquate();
-        displayValue[displayValue.length] = divides;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '÷';
+//Handling strange or illogical user inputs on the operator buttons
+function errorSkip() {
+    if (displayValue.length === 0) {
+        return true;
     }
-    if (button.id === 'multiply') {
-        preEquate();
-        displayValue[displayValue.length] = multiplies;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = 'x';
-    }
-    if (button.id === 'minus') {
-        preEquate();
-        displayValue[displayValue.length] = subtracts;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '-';
-    } 
-    if (button.id === 'plus') {
-        preEquate();
-        displayValue[displayValue.length] = adds;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '+';
-    }
-    if (button.id === 'equal') {
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        operates();
-    }
-}));
+}
