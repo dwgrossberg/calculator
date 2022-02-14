@@ -87,23 +87,34 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 //Operator populator
+function preEquate() {
+    if (displayValue.length > 0) {
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        operates();
+    }
+}
+
 operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
+        preEquate();
         displayValue[displayValue.length] = divides;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '÷';
     }
     if (button.id === 'multiply') {
+        preEquate();
         displayValue[displayValue.length] = multiplies;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = 'x';
     }
     if (button.id === 'minus') {
+        preEquate();
         displayValue[displayValue.length] = subtracts;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '-';
     } 
     if (button.id === 'plus') {
+        preEquate();
         displayValue[displayValue.length] = adds;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '+';
