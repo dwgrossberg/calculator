@@ -95,6 +95,7 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
         if (operatorSkip()) return;
+        if (errorSkip()) return;
         preEquate();
         displayValue[displayValue.length] = divides;
         displayValue[displayValue.length] = Number(displayText.innerText);
@@ -118,7 +119,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '+';
     } else if (button.id === 'equal') {
-        if (errorSkip()) return;
+        if (emptyEquals()) return;
         else {
             displayValue[displayValue.length] = Number(displayText.innerText);
             operates();
@@ -134,7 +135,7 @@ function preEquate() {
 }
 
 //Handling strange or illogical user inputs on the operator buttons
-function errorSkip() {
+function emptyEquals() {
     if (displayValue.length === 0) {
         return true;
     }
@@ -143,6 +144,12 @@ function errorSkip() {
 function operatorSkip() {
     if (displayText.innerText === '') {
         return true;
-    }
+    } 
+}
 
+function errorSkip() {
+    if (displayText.innerText === 'error') {
+        displayText.innerText === ''
+        return true; 
+    }
 }
