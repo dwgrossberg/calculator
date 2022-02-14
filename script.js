@@ -94,29 +94,32 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 //Operator populator
 operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
+        if (operatorSkip()) return;
         preEquate();
         displayValue[displayValue.length] = divides;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '÷';
     } else if (button.id === 'multiply') {
+        if (operatorSkip()) return;
         preEquate();
         displayValue[displayValue.length] = multiplies;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = 'x';
     } else if (button.id === 'minus') {
+        if (operatorSkip()) return;
         preEquate();
         displayValue[displayValue.length] = subtracts;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '-';
     } else if (button.id === 'plus') {
+        if (operatorSkip()) return;
         preEquate();
         displayValue[displayValue.length] = adds;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '+';
     } else if (button.id === 'equal') {
-        if (errorSkip()) {
-            return displayValue = [];
-        } else {
+        if (errorSkip()) return;
+        else {
             displayValue[displayValue.length] = Number(displayText.innerText);
             operates();
         }
@@ -135,4 +138,11 @@ function errorSkip() {
     if (displayValue.length === 0) {
         return true;
     }
+}
+
+function operatorSkip() {
+    if (displayText.innerText === '') {
+        return true;
+    }
+
 }
