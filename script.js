@@ -21,7 +21,7 @@ const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
 let displayValue = []; //empty array set up to hold ongoing calculator values
 
-let numberButtons = [decimal, zero, one, two, three, four, five, six, seven, eight, nine];
+let numberButtons = [zero, one, two, three, four, five, six, seven, eight, nine];
 
 let operatorButtons = [divide, multiply, minus, plus, equal];
 
@@ -43,7 +43,7 @@ function divides(a, b) {
 }
 
 function isFloat(n) {
-    return Number(n) === n && n % 1 !== 0; //Check to see whether number is floating point or not
+    return Number(n) === n && n % 1 !== 0; //check to see whether number is floating point or not
 }
 
 //Operate function
@@ -56,13 +56,13 @@ function operates() {
     if (isFloat(newValue)) {
         let roundedValue = newValue.toFixed(2);
         if (roundedValue.toString().length > 10) {
-            displayText.innerText = 'error'; //handling numbers that are too large for the display
+            displayText.innerText = newValue.toExponential(2); //handling numbers that are too large for the display
         } else {
         displayText.innerText = roundedValue;
         }
     } else {
         if (newValue.toString().length > 10) {
-            displayText.innerText = 'error';
+            displayText.innerText = newValue.toExponential(2);
         } else {
         displayText.innerText = newValue;
         }
@@ -82,8 +82,13 @@ backspace.addEventListener('click', () => {
 })
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
         displayText.innerText = '';
+    }
+    if (displayText.innerText === '-' && displayValue.length > 0) {
+        displayText.innerText = '';
+    } else if (displayText.innerText === '-' && displayValue.length === 0) {
+        displayText.innerText = '-';
     }
     if (displayText.innerText.length < 10) {
         displayText.innerText = displayText.innerText + button.innerText;
@@ -91,11 +96,15 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
     }
 }));
 
+decimal.addEventListener('click', () => {
+    if (displayText.innerText.includes('.')) return; //only allow one decimal for each display value
+    displayText.innerText = displayText.innerText + decimal.innerText;
+})
+
 //Operator populator
 operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
         if (operatorSkip()) return;
-        if (errorSkip()) return;
         preEquate();
         displayValue[displayValue.length] = divides;
         displayValue[displayValue.length] = Number(displayText.innerText);
@@ -107,11 +116,14 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = 'x';
     } else if (button.id === 'minus') {
-        if (operatorSkip()) return;
-        preEquate();
-        displayValue[displayValue.length] = subtracts;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '-';
+        if (displayValue.length === 0) {
+            displayText.innerText = '-';
+        } else if (displayText.innerText.length > 1) {
+            preEquate();
+            displayValue[displayValue.length] = subtracts;
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayText.innerText = '-';
+        }
     } else if (button.id === 'plus') {
         if (operatorSkip()) return;
         preEquate();
@@ -141,15 +153,16 @@ function emptyEquals() {
     }
 }
 
-function operatorSkip() {
+function operatorSkip() {   
     if (displayText.innerText === '') {
         return true;
-    } 
+    } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+        return true;
+    }
 }
 
-function errorSkip() {
-    if (displayText.innerText === 'error') {
-        displayText.innerText === ''
-        return true; 
-    }
+function makeNegative() {
+    if (this.id === 'minus' && displayText.innerText === '') {
+        displayText.innerText = '-';
+}
 }
