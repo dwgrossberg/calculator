@@ -151,18 +151,18 @@ function emptyEquals() {
 
 function operatorSkip() {   
     if (displayText.innerText === '') return true;
-    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
+    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
         return true;
     }
 }
 
 function makeNegative() {
-    if (displayValue.length > 0 && (displayText.innerText !== '-')) {
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+        return;
+    } else if (displayValue.length > 0 && (displayText.innerText !== '-')) {
         displayValue[displayValue.length] = Number(displayText.innerText);
         operates();
-    }
-    if (displayText.innerText === '-') return;
-    else if (displayText.innerText === '') {
+    } else if (displayText.innerText === '') {
         displayText.innerText = '-'; 
     } else {
         displayValue[displayValue.length] = subtracts;
