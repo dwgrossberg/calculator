@@ -19,6 +19,7 @@ const six = document.getElementById('six');
 const seven = document.getElementById('seven');
 const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
+
 let displayValue = []; //empty array set up to hold ongoing calculator values
 
 let numberButtons = [zero, one, two, three, four, five, six, seven, eight, nine];
@@ -156,15 +157,15 @@ function operatorSkip() {
     }
 }
 
+//Special conditions for working with negative numbers
 function makeNegative() {
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
-        return;
-    } else if (displayValue.length > 0 && (displayText.innerText !== '-')) {
+    if (displayText.innerText === '') { //sets value to negative if nothing to evaluate
+        displayText.innerText = '-'; 
+    } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+        return; //necessary to avoid accidentally inserting minus function into operates function displayValue[2]
+    } else if (displayValue.length > 0) { //modified preEquate and operatorPopulator to work with negative numbers
         displayValue[displayValue.length] = Number(displayText.innerText);
         operates();
-    } else if (displayText.innerText === '') {
-        displayText.innerText = '-'; 
-    } else {
         displayValue[displayValue.length] = subtracts;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '-';     
