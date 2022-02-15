@@ -119,7 +119,6 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = 'x';
     } else if (button.id === 'minus') {
-        preEquate();
         makeNegative();
     } else if (button.id === 'plus') {
         if (operatorSkip()) return;
@@ -158,12 +157,14 @@ function operatorSkip() {
 }
 
 function makeNegative() {
-    if (displayText.innerText === '') {
+    if (displayValue.length > 0 && (displayText.innerText !== '-')) {
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        operates();
+    }
+    if (displayText.innerText === '-') return;
+    else if (displayText.innerText === '') {
         displayText.innerText = '-'; 
-    } else if (displayText.innerText === '-') {
-        return;
     } else {
-        console.log(displayText.innerText);
         displayValue[displayValue.length] = subtracts;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '-';     
