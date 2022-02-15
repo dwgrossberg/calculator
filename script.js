@@ -97,6 +97,9 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 decimal.addEventListener('click', () => {
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
+    displayText.innerText = '';
+}
     if (displayText.innerText.includes('.')) return; //only allow one decimal for each display value
     displayText.innerText = displayText.innerText + decimal.innerText;
 })
@@ -116,14 +119,8 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = 'x';
     } else if (button.id === 'minus') {
-        if (displayValue.length === 0) {
-            displayText.innerText = '-';
-        } else if (displayText.innerText.length > 1) {
-            preEquate();
-            displayValue[displayValue.length] = subtracts;
-            displayValue[displayValue.length] = Number(displayText.innerText);
-            displayText.innerText = '-';
-        }
+        preEquate();
+        makeNegative();
     } else if (button.id === 'plus') {
         if (operatorSkip()) return;
         preEquate();
@@ -154,15 +151,22 @@ function emptyEquals() {
 }
 
 function operatorSkip() {   
-    if (displayText.innerText === '') {
-        return true;
-    } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+    if (displayText.innerText === '') return true;
+    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
         return true;
     }
 }
 
 function makeNegative() {
-    if (this.id === 'minus' && displayText.innerText === '') {
-        displayText.innerText = '-';
+    if (displayText.innerText === '') {
+        displayText.innerText = '-'; 
+    } else if (displayText.innerText === '-') {
+        return;
+    } else {
+        console.log(displayText.innerText);
+        displayValue[displayValue.length] = subtracts;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '-';     
+    }
 }
-}
+
