@@ -73,7 +73,7 @@ body {
 
 .clearDelete button {
     width: 150px;
-    height: 50px;
+    height: 55px;
     background-color: #9b7389;
     border: none;
     border-radius: 2px;
@@ -82,17 +82,14 @@ body {
     color: white;
 }
 
-#plusMinus {
+#divide {
     width: 65px;
-    background-color: #a0afbb;
-    color: white;
-    font-size: 18px;
 }
 
 .containerBottom {
     display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+    justify-content: space-between;
+    margin-top: 12px;
     gap: 10px
 }
 
@@ -101,19 +98,22 @@ body {
     height: 55px;
 }
 
-.row3,
-.row2,
-.row1,
-.row0 {
+.column4,
+.column3,
+.column2,
+.column1,
+.column0 {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    gap: 10px;
 }
 
-
-.row3 button,
-.row2 button,
-.row1 button,
-.row0 button {
+.column4 button,
+.column3 button,
+.column2 button,
+.column1 button,
+.column0 button {
     border: none;
     border-radius: 2px;
     font-family: Lato, arial;
@@ -121,7 +121,12 @@ body {
     background-color: #f1f3f5;
 }
 
-#doubleZero,
+#plusMinus {
+    background-color: #a0afbb;
+    color: white;
+    font-size: 18px;
+}
+
 #percent,
 #exponent,
 #squareRoot,
@@ -132,6 +137,21 @@ body {
     background-color: #73899b;
     color: white;
     font-size: 18px;
+}
+
+#plus {
+    height: 120px;
+    border: none;
+}
+
+.plusWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.bigPlus {
+    display: flex;
+    justify-content: flex-end;
 }
 
 #equal {
