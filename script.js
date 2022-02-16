@@ -169,10 +169,10 @@ function makeNegative() {
         //in progress...
         displayValue[displayValue.length] = Number(displayText.innerText);
         operates();
+    } else {
+        displayValue[displayValue.length] = subtracts;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '-';     
     }
-    displayValue[displayValue.length] = subtracts;
-    displayValue[displayValue.length] = Number(displayText.innerText);
-    displayText.innerText = '-';     
-
     
 }
