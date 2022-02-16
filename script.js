@@ -86,9 +86,9 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
         displayText.innerText = '';
     }
-    if (displayText.innerText === '-' && displayValue.length > 0) {
-        displayText.innerText = '';
-    } else if (displayText.innerText === '-' && displayValue.length === 0) {
+    //if (displayText.innerText === '-' && displayValue.length > 0) {
+        //displayText.innerText = '';
+    if (displayText.innerText === '-' && displayValue.length === 0) {
         displayText.innerText = '-';
     }
     if (displayText.innerText.length < 10) {
@@ -159,8 +159,12 @@ function operatorSkip() {
 
 //Special conditions for working with negative numbers
 function makeNegative() {
+    let i = 0;
     if (displayText.innerText === '') { //sets value to negative if nothing to evaluate
         displayText.innerText = '-'; 
+    } else if ((displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') && i === 0) {
+        displayText.innerText = '-';
+        i++; 
     } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
         return; //necessary to avoid accidentally inserting minus function into second operand of operates function - i.e. displayValue[2]
     } else if (displayValue.length > 0) { //modified preEquate and operatorPopulator to work with negative numbers
