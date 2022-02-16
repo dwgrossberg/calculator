@@ -13,9 +13,11 @@ body {
     height: 600px;
     width: 450px;
     margin-top: 70px;
-    border: solid 1px #9b8573;
+    border: solid 1px #705e50;
     border-radius: 5%;
     background-color: #cfd6dc;
+    box-shadow: .5px .5px #705e50;
+
 }
 
 .container {
@@ -28,6 +30,7 @@ body {
 
 .solar {
     display: flex;
+    box-shadow: .5px .5px #705e50;
 }
 
 .solar div{
@@ -41,10 +44,11 @@ body {
 .valueDisplay {
     width: 400px;
     height: 30px;
-    border: solid .5px #9b8573;
+    border: solid .5px #705e50;
     border-radius: 3px;
     margin-top: 20px;
     background-color: #f7f3ef;
+    box-shadow: .5px .5px #705e50;
 }
 
 .display {
@@ -53,10 +57,11 @@ body {
     align-items: center;
     width: 400px;
     height: 100px;
-    border: solid .5px #9b8573;
+    border: solid .5px #705e50;
     border-radius: 3px;
     margin-top: 10px;
     background-color: #eff7f7;
+    box-shadow: .5px .5px #705e50;
 }
 
 #displayText {
@@ -80,6 +85,12 @@ body {
     font-family: Lato, arial;
     font-size: 18px;
     color: white;
+    box-shadow: .5px .5px #705e50;
+}
+
+.clearDelete button:hover {
+    box-shadow: 1px 1px #615245;
+
 }
 
 #divide {
@@ -96,6 +107,12 @@ body {
 .containerBottom button {
     width: 65px;
     height: 55px;
+    box-shadow: .5px .5px #705e50;
+}
+
+.containerBottom button:hover {
+    box-shadow: 1px 1px #615245;
+
 }
 
 .column4,

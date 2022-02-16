@@ -19,12 +19,16 @@ const six = document.getElementById('six');
 const seven = document.getElementById('seven');
 const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
+const plusMinus = document.getElementById('plusMinus');
+const percent = document.getElementById('percent');
+const exponent = document.getElementById('exponent');
+const squareRoot = document.getElementById('squareRoot');
 
 let displayValue = []; //empty array set up to hold ongoing calculator values
 
 let numberButtons = [zero, one, two, three, four, five, six, seven, eight, nine];
 
-let operatorButtons = [divide, multiply, minus, plus, equal];
+let operatorButtons = [divide, multiply, minus, plus, percent, exponent, squareRoot, equal];
 
 //Basic math operator functions
 function adds(a, b) {
@@ -86,9 +90,9 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
         displayText.innerText = '';
     }
-    //if (displayText.innerText === '-' && displayValue.length > 0) {
-        //displayText.innerText = '';
-    if (displayText.innerText === '-' && displayValue.length === 0) {
+    if (displayText.innerText === '-' && displayValue.length > 0) {
+        displayText.innerText = '';
+    } else if (displayText.innerText === '-' && displayValue.length === 0) {
         displayText.innerText = '-';
     }
     if (displayText.innerText.length < 10) {
@@ -120,7 +124,11 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = 'x';
     } else if (button.id === 'minus') {
-        makeNegative();
+        if (operatorSkip()) return;
+        preEquate();
+        displayValue[displayValue.length] = subtracts;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '-';    
     } else if (button.id === 'plus') {
         if (operatorSkip()) return;
         preEquate();
@@ -143,6 +151,11 @@ function preEquate() {
     }
 }
 
+//Plus/minus button
+plusMinus.addEventListener('click', () => {
+    displayText.innerText = displayText.innerText * -1;
+});
+
 //Handling strange or illogical user inputs on the operator buttons
 function emptyEquals() {
     if (displayValue.length === 0) {
@@ -154,28 +167,5 @@ function operatorSkip() {
     if (displayText.innerText === '') return true;
     else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
         return true;
-    }
-}
-
-//Special conditions for working with negative numbers
-function makeNegative() {
-    let i = 0;
-    if (displayText.innerText === '') { //sets value to negative if nothing to evaluate
-        displayText.innerText = '-'; 
-    } else if ((displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') && i === 0) {
-        displayText.innerText = '-';
-        i++; 
-    } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
-        return; //necessary to avoid accidentally inserting minus function into second operand of operates function - i.e. displayValue[2]
-    } else if (displayValue.length > 0) { //modified preEquate and operatorPopulator to work with negative numbers
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        operates();
-        displayValue[displayValue.length] = subtracts;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '-';     
-    } else { //repetitive but necessary for initial negative number input
-        displayValue[displayValue.length] = subtracts;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '-';     
     }
 }
