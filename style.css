@@ -41,7 +41,10 @@ body {
     background-color: #ab998a;
 }
 
-.valueDisplay {
+.chainDisplay {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     width: 400px;
     height: 30px;
     border: solid .5px #705e50;
@@ -70,6 +73,12 @@ body {
     margin-right: 25px;
 }
 
+#chainDisplayText {
+    font-family: Lato, arial;
+    font-size: 14px;
+    margin-right: 25px;
+}
+
 .clearDelete {
     display: flex;
     justify-content: space-between;
@@ -90,7 +99,7 @@ body {
 
 .clearDelete button:hover {
     box-shadow: 1px 1px #615245;
-
+    transform: scale(1.02);
 }
 
 #divide {
@@ -112,7 +121,7 @@ body {
 
 .containerBottom button:hover {
     box-shadow: 1px 1px #615245;
-
+    transform: scale(1.02);
 }
 
 .column4,

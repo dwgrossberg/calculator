@@ -1,6 +1,7 @@
 //Variables
 const display = document.getElementsByClassName('display');
 const displayText = document.getElementById('displayText');
+const chainDisplayText = document.getElementById('chainDisplayText');
 const clear = document.getElementById('clear');
 const backspace = document.getElementById('backspace');
 const divide = document.getElementById('divide');
@@ -56,6 +57,27 @@ function operates() {
     let newValue = displayValue[0](displayValue[1], displayValue[2]);
     console.log(displayValue);
     console.log(newValue);
+    if (displayValue[0] === divides) { //printing the operation sequence to the value display 
+        if (isFloat(newValue)) {
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerText = chainDisplayText.innerText + '÷' + displayValue[2] + ' = ' + newValue.toFixed(2);
+            } else {
+            chainDisplayText.innerText = displayValue[1] + '÷' + displayValue[2] + ' = ' + newValue.toFixed(2);
+            }
+        } else {
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerText = chainDisplayText.innerText + '÷' + displayValue[2] + ' = ' + newValue;
+            } else {
+            chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + '÷' + displayValue[2] + ' = ' + newValue;
+            }
+        }
+    } else if (displayValue[0] === multiplies) {
+        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + 'x' + displayValue[2] + ' = ' + newValue;
+    } else if (displayValue[0] === subtracts) {
+        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + '-' + displayValue[2] + ' = ' + newValue;
+    } else if (displayValue[0] === adds) {
+        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + '+' + displayValue[2] + ' = ' + newValue;
+    }       
     displayValue = [];
     displayText.innerText = '';
     if (isFloat(newValue)) {
@@ -74,9 +96,23 @@ function operates() {
 }
 }
 
+//Chain display feature
+function displayChain() {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
 //Populate display when number buttons are clicked
 clear.addEventListener('click', () => {
     displayText.innerText = '';
+    chainDisplayText.innerText = '';
     displayValue = [];
 });
 
