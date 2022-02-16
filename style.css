@@ -13,9 +13,9 @@ body {
     height: 600px;
     width: 450px;
     margin-top: 70px;
-    border: solid 1px #696969;
+    border: solid 1px #9b8573;
     border-radius: 5%;
-    background-color: #F8F8F8;
+    background-color: #cfd6dc;
 }
 
 .container {
@@ -33,7 +33,18 @@ body {
 .solar div{
     width: 19px;
     height: 20px;
-    border: dotted .5px #696969;
+    border: dotted .5px white;
+    border-radius: 2px;
+    background-color: #ab998a;
+}
+
+.valueDisplay {
+    width: 400px;
+    height: 30px;
+    border: solid .5px #9b8573;
+    border-radius: 3px;
+    margin-top: 20px;
+    background-color: #f7f3ef;
 }
 
 .display {
@@ -42,10 +53,10 @@ body {
     align-items: center;
     width: 400px;
     height: 100px;
-    border: solid .5px #696969;
+    border: solid .5px #9b8573;
     border-radius: 3px;
     margin-top: 10px;
-    background-color: #eeeef2;
+    background-color: #eff7f7;
 }
 
 #displayText {
@@ -61,8 +72,21 @@ body {
 }
 
 .clearDelete button {
-    width: 190px;
+    width: 150px;
     height: 50px;
+    background-color: #9b7389;
+    border: none;
+    border-radius: 2px;
+    font-family: Lato, arial;
+    font-size: 18px;
+    color: white;
+}
+
+#plusMinus {
+    width: 65px;
+    background-color: #a0afbb;
+    color: white;
+    font-size: 18px;
 }
 
 .containerBottom {
@@ -73,8 +97,8 @@ body {
 }
 
 .containerBottom button {
-    width: 85px;
-    height: 65px;
+    width: 65px;
+    height: 55px;
 }
 
 .row3,
@@ -86,12 +110,35 @@ body {
 }
 
 
+.row3 button,
+.row2 button,
+.row1 button,
+.row0 button {
+    border: none;
+    border-radius: 2px;
+    font-family: Lato, arial;
+    font-size: 14px;
+    background-color: #f1f3f5;
+}
 
+#doubleZero,
+#percent,
+#exponent,
+#squareRoot,
+#divide,
+#multiply,
+#minus,
+#plus {
+    background-color: #73899b;
+    color: white;
+    font-size: 18px;
+}
 
-
-
-
-
+#equal {
+    background-color: #9b8573;
+    color: white;
+    font-size: 18px;
+}
 
 .madeBy {
     display: flex;
