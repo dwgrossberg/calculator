@@ -162,17 +162,19 @@ function makeNegative() {
     if (displayText.innerText === '') { //sets value to negative if nothing to evaluate
         displayText.innerText = '-'; 
     } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
-        return; //necessary to avoid accidentally inserting minus function into operates function displayValue[2]
+        return; //necessary to avoid accidentally inserting minus function into displayValue[2]
     } else if (displayValue.length > 0) { //modified preEquate and operatorPopulator to work with negative numbers
         //if (displayText.innerText = '-') {
         //displayText.innerText = displayText.innerText + 
         //in progress...
         displayValue[displayValue.length] = Number(displayText.innerText);
         operates();
-    } else {
+        displayValue[displayValue.length] = subtracts;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '-';     
+    } else { //repetitive but necessary 
         displayValue[displayValue.length] = subtracts;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '-';     
     }
-    
 }
