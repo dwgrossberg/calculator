@@ -74,7 +74,7 @@ function operates() {
     console.log(newValue);
     if (displayValue[0] === factorize) { //printing operations with only one operand to the chainDisplay
         if (chainDisplayText.innerText.length > 0) {
-            chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         } else {
             chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         }
