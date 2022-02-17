@@ -63,6 +63,10 @@ function squareRoots(x) {
     return Math.sqrt(x);
 }
 
+function power(a, b) {
+    return Math.pow(a, b);
+}
+
 function percentage(a, b) {
     return a * (b / 100);
 }
@@ -120,7 +124,7 @@ function operates() {
         } else {
         displayText.innerText = newValue;
         }
-}
+    }
 }
 
 //Populate display when number buttons are clicked
@@ -137,13 +141,8 @@ backspace.addEventListener('click', () => {
 })
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '^') {
         displayText.innerText = '';
-    }
-    if (displayText.innerText === '-' && displayValue.length > 0) {
-        displayText.innerText = '';
-    } else if (displayText.innerText === '-' && displayValue.length === 0) {
-        displayText.innerText = '-';
     }
     if (displayText.innerText.length < 10) {
         displayText.innerText = displayText.innerText + button.innerText;
@@ -197,6 +196,12 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = squareRoots;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '√' + displayText.innerText;
+    } else if (button.id ==='exponent') {
+        if (operatorSkip()) return;
+        preEquate();
+        displayValue[displayValue.length] = power;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '^';
     } else if (button.id === 'equal') {
         if (emptyEquals()) return;
         else {
@@ -219,7 +224,9 @@ function preEquate() {
         } else if (displayValue[0] === factorize) {
             displayValue[displayValue.length] = displayValue[1] + '!';
         } else if (displayValue[0] === squareRoots) {
-            displayValue[displayValue.length] =  '√' + displayValue[1];
+            displayValue[displayValue.length] = '√' + displayValue[1];
+        } else if (displayValue[0] === power) {
+            displayValue[displayValue.length] = '^';
         }
         operates();
     }
