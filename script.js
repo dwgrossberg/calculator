@@ -67,8 +67,8 @@ function power(a, b) {
     return Math.pow(a, b);
 }
 
-function percentage(a, b) {
-    return a * (b / 100);
+function percentage(x) {
+    return (x / 100);
 }
 
 function isFloat(n) {
@@ -80,7 +80,21 @@ function operates() {
     newValue = displayValue[0](displayValue[1], displayValue[2]);
     console.log(displayValue);
     console.log(newValue);
-    if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
+    if (displayValue.includes('%')) { //printing percentage operations to the chainDisplay
+        if (isFloat(newValue)) {
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else {
+                chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            }
+        } else {
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            } else {
+                chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            }
+        }
+    } else if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (isFloat(newValue)) {
             if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
@@ -141,7 +155,7 @@ backspace.addEventListener('click', () => {
 })
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '^') {
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '^') {
         displayText.innerText = '';
     }
     if (displayText.innerText.length < 10) {
@@ -151,9 +165,6 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 decimal.addEventListener('click', () => {
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+') {
-    displayText.innerText = '';
-}
     if (displayText.innerText.includes('.')) return; //only allow one decimal for each display value
     displayText.innerText = displayText.innerText + decimal.innerText;
 })
@@ -202,6 +213,12 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = power;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '^';
+    } else if (button.id ==='percent') {
+        if (operatorSkip()) return;
+        displayValue[displayValue.length] = percentage(Number(displayText.innerText));
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayValue[displayValue.length] = displayValue[3] + '%';
+        displayText.innerText = displayText.innerText + '%';
     } else if (button.id === 'equal') {
         if (emptyEquals()) return;
         else {
@@ -241,14 +258,14 @@ plusMinus.addEventListener('click', () => {
 function emptyEquals() {
     if (displayValue.length === 0) {
         return true;
-    } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+    } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^') {
         return true;
     }
 }
 
 function operatorSkip() {   
     if (displayText.innerText === '') return true;
-    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || displayText.innerText === '%') {
         return true;
     }
 }
