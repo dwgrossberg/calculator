@@ -78,6 +78,7 @@ function isFloat(n) {
 //Operate function
 function operates() {
     newValue = displayValue[0](displayValue[1], displayValue[2]);
+    let roundedValue = newValue.toFixed(2);
     console.log(displayValue);
     console.log(newValue);
     if (displayValue.includes('%')) { //printing percentage operations to the chainDisplay
@@ -126,7 +127,6 @@ function operates() {
     displayValue = [];
     displayText.innerText = '';
     if (isFloat(newValue)) {
-        let roundedValue = newValue.toFixed(2);
         if (roundedValue.toString().length > 10) {
             displayText.innerText = newValue.toExponential(2); //handling numbers that are too large for the display
         } else {
@@ -157,6 +157,8 @@ backspace.addEventListener('click', () => {
 numberButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '^') {
         displayText.innerText = '';
+    } else if (displayText.innerText.includes('!')) {
+        return; //special case so as not to print extra numbers after factorial symbol
     }
     if (displayText.innerText.length < 10) {
         displayText.innerText = displayText.innerText + button.innerText;
@@ -240,10 +242,10 @@ function preEquate() {
             displayValue[displayValue.length] = '+';
         } else if (displayValue[0] === factorize) {
             displayValue[displayValue.length] = displayValue[1] + '!';
-            displayValue[displayValue.length] = '!';
+            displayValue[displayValue.length] = '!'; //special case for displaying single operand
         } else if (displayValue[0] === squareRoots) {
             displayValue[displayValue.length] = '√' + displayValue[1];
-            displayValue[displayValue.length] = '√';
+            displayValue[displayValue.length] = '√'; //special case for displaying single operand
         } else if (displayValue[0] === power) {
             displayValue[displayValue.length] = '^';
         }
