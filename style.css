@@ -76,6 +76,11 @@ body {
     font-family: Lato, arial;
     font-size: 14px;
     margin-right: 25px;
+    color: #696969;
+}
+
+#chainDisplayBold {
+        color: black;
 }
 
 .clearDelete {

@@ -59,15 +59,15 @@ function operates() {
     console.log(newValue);
     if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
         if (chainDisplayText.innerText.length > 0) {
-            chainDisplayText.innerText = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + newValue.toFixed(2);
+            chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
         } else {
-        chainDisplayText.innerText = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + newValue.toFixed(2);
+            chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
         }
     } else {
         if (chainDisplayText.innerText.length > 0) {
-            chainDisplayText.innerText = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + newValue;
+            chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         } else {
-        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + newValue;
+            chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         }
     }
     displayValue = [];
