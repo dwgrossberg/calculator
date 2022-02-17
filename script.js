@@ -73,20 +73,22 @@ function isFloat(n) {
 
 //Operate function
 function operates() {
-    let newValue;
-    if (displayValue[0] === factorize || displayValue[0] === squareRoots) {
-        newValue = displayValue[0](displayValue[1]);
-        console.log('hi');
-    } else {
-        newValue = displayValue[0](displayValue[1], displayValue[2]);
-    }
+    newValue = displayValue[0](displayValue[1], displayValue[2]);
     console.log(displayValue);
     console.log(newValue);
     if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
-        if (chainDisplayText.innerText.length > 0) {
-            chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+        if (isFloat(newValue)) {
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else {
+                chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            }
         } else {
-            chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            } else {
+                chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            }
         }
     } else {
         if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
