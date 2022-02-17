@@ -57,27 +57,19 @@ function operates() {
     let newValue = displayValue[0](displayValue[1], displayValue[2]);
     console.log(displayValue);
     console.log(newValue);
-    if (displayValue[0] === divides) { //printing the operation sequence to the value display 
-        if (isFloat(newValue)) {
-            if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerText = chainDisplayText.innerText + '÷' + displayValue[2] + ' = ' + newValue.toFixed(2);
-            } else {
-            chainDisplayText.innerText = displayValue[1] + '÷' + displayValue[2] + ' = ' + newValue.toFixed(2);
-            }
+    if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
+        if (chainDisplayText.innerText.length > 0) {
+            chainDisplayText.innerText = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + newValue.toFixed(2);
         } else {
-            if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerText = chainDisplayText.innerText + '÷' + displayValue[2] + ' = ' + newValue;
-            } else {
-            chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + '÷' + displayValue[2] + ' = ' + newValue;
-            }
+        chainDisplayText.innerText = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + newValue.toFixed(2);
         }
-    } else if (displayValue[0] === multiplies) {
-        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + 'x' + displayValue[2] + ' = ' + newValue;
-    } else if (displayValue[0] === subtracts) {
-        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + '-' + displayValue[2] + ' = ' + newValue;
-    } else if (displayValue[0] === adds) {
-        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + '+' + displayValue[2] + ' = ' + newValue;
-    }       
+    } else {
+        if (chainDisplayText.innerText.length > 0) {
+            chainDisplayText.innerText = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + newValue;
+        } else {
+        chainDisplayText.innerText = chainDisplayText.innerText + displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + newValue;
+        }
+    }
     displayValue = [];
     displayText.innerText = '';
     if (isFloat(newValue)) {
@@ -94,19 +86,6 @@ function operates() {
         displayText.innerText = newValue;
         }
 }
-}
-
-//Chain display feature
-function displayChain() {
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 //Populate display when number buttons are clicked
@@ -174,8 +153,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     } else if (button.id === 'equal') {
         if (emptyEquals()) return;
         else {
-            displayValue[displayValue.length] = Number(displayText.innerText);
-            operates();
+            preEquate();
         }
     }
 }));
@@ -183,6 +161,15 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
 function preEquate() {
     if (displayValue.length > 0) {
         displayValue[displayValue.length] = Number(displayText.innerText);
+        if (displayValue[0] === divides) { //saving the operation symbol to print in the chainDisplay
+            displayValue[displayValue.length] = '÷';
+        } else if (displayValue[0] === multiplies) {
+            displayValue[displayValue.length] = 'x';
+        } else if (displayValue[0] === subtracts) {
+            displayValue[displayValue.length] = '-';
+        } else if (displayValue[0] === adds) {
+            displayValue[displayValue.length] = '+';
+        }
         operates();
     }
 }
