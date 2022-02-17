@@ -183,6 +183,8 @@ plusMinus.addEventListener('click', () => {
 function emptyEquals() {
     if (displayValue.length === 0) {
         return true;
+    } else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+') {
+        return true;
     }
 }
 
