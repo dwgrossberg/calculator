@@ -83,7 +83,7 @@ function operates() {
     if (displayValue.includes('%')) { //printing percentage operations to the chainDisplay
         if (isFloat(newValue)) {
             if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
@@ -97,13 +97,13 @@ function operates() {
     } else if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (isFloat(newValue)) {
             if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
             if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             }
@@ -240,8 +240,10 @@ function preEquate() {
             displayValue[displayValue.length] = '+';
         } else if (displayValue[0] === factorize) {
             displayValue[displayValue.length] = displayValue[1] + '!';
+            displayValue[displayValue.length] = '!';
         } else if (displayValue[0] === squareRoots) {
             displayValue[displayValue.length] = '√' + displayValue[1];
+            displayValue[displayValue.length] = '√';
         } else if (displayValue[0] === power) {
             displayValue[displayValue.length] = '^';
         }
