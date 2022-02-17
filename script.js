@@ -59,6 +59,10 @@ function factorize(n) {
   return result;
 }
 
+function squareRoots(x) {
+    return Math.sqrt(x);
+}
+
 function percentage(a, b) {
     return a * (b / 100);
 }
@@ -69,10 +73,16 @@ function isFloat(n) {
 
 //Operate function
 function operates() {
-    let newValue = displayValue[0](displayValue[1], displayValue[2]);
+    let newValue;
+    if (displayValue[0] === factorize || displayValue[0] === squareRoots) {
+        newValue = displayValue[0](displayValue[1]);
+        console.log('hi');
+    } else {
+        newValue = displayValue[0](displayValue[1], displayValue[2]);
+    }
     console.log(displayValue);
     console.log(newValue);
-    if (displayValue[0] === factorize) { //printing operations with only one operand to the chainDisplay
+    if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (chainDisplayText.innerText.length > 0) {
             chainDisplayText.innerHTML = chainDisplayText.innerText + '! = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         } else {
@@ -179,6 +189,12 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = factorize;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = displayText.innerText + '!';
+    } else if (button.id ==='squareRoot') {
+        if (operatorSkip()) return;
+        preEquate();
+        displayValue[displayValue.length] = squareRoots;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = '√' + displayText.innerText;
     } else if (button.id === 'equal') {
         if (emptyEquals()) return;
         else {
@@ -200,6 +216,8 @@ function preEquate() {
             displayValue[displayValue.length] = '+';
         } else if (displayValue[0] === factorize) {
             displayValue[displayValue.length] = displayValue[1] + '!';
+        } else if (displayValue[0] === squareRoots) {
+            displayValue[displayValue.length] =  '√' + displayValue[1];
         }
         operates();
     }
