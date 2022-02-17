@@ -15,7 +15,7 @@ body {
     margin-top: 70px;
     border: solid 1px #705e50;
     border-radius: 5%;
-    background-color: #cfd6dc;
+    background-color: #dee3e7;
     box-shadow: .5px .5px #705e50;
 
 }
@@ -30,7 +30,6 @@ body {
 
 .solar {
     display: flex;
-    box-shadow: .5px .5px #705e50;
 }
 
 .solar div{
@@ -102,7 +101,9 @@ body {
     transform: scale(1.02);
 }
 
-#divide {
+#divide,
+#factorial,
+#backspace {
     width: 65px;
 }
 
@@ -159,7 +160,8 @@ body {
 #divide,
 #multiply,
 #minus,
-#plus {
+#plus,
+#factorial {
     background-color: #73899b;
     color: white;
     font-size: 18px;
