@@ -24,12 +24,13 @@ const plusMinus = document.getElementById('plusMinus');
 const percent = document.getElementById('percent');
 const exponent = document.getElementById('exponent');
 const squareRoot = document.getElementById('squareRoot');
+const factorial = document.getElementById('factorial');
 
 let displayValue = []; //empty array set up to hold ongoing calculator values
 
 let numberButtons = [zero, one, two, three, four, five, six, seven, eight, nine];
 
-let operatorButtons = [divide, multiply, minus, plus, percent, exponent, squareRoot, equal];
+let operatorButtons = [divide, multiply, minus, plus, percent, exponent, squareRoot, factorial, equal];
 
 //Basic math operator functions
 function adds(a, b) {
@@ -48,6 +49,20 @@ function divides(a, b) {
     return a / b;
 }
 
+function factorize(n) {
+  let result = 1;
+  if (n === 0 || n === 1)
+    return result;
+  for (let i = 2; i <= n; i++){
+    result = result * i;
+  }
+  return result;
+}
+
+function percentage(a, b) {
+    return a * (b / 100);
+}
+
 function isFloat(n) {
     return Number(n) === n && n % 1 !== 0; //check to see whether number is floating point or not
 }
@@ -57,17 +72,25 @@ function operates() {
     let newValue = displayValue[0](displayValue[1], displayValue[2]);
     console.log(displayValue);
     console.log(newValue);
-    if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
+    if (displayValue[0] === factorize) { //printing operations with only one operand to the chainDisplay
         if (chainDisplayText.innerText.length > 0) {
-            chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         } else {
-            chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         }
     } else {
-        if (chainDisplayText.innerText.length > 0) {
-            chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+        if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else {
+                chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            }
         } else {
-            chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            } else {
+                chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            }
         }
     }
     displayValue = [];
@@ -150,6 +173,12 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = adds;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '+';
+    } else if (button.id ==='factorial') {
+        if (operatorSkip()) return;
+        preEquate();
+        displayValue[displayValue.length] = factorize;
+        displayValue[displayValue.length] = Number(displayText.innerText);
+        displayText.innerText = displayText.innerText + '!';
     } else if (button.id === 'equal') {
         if (emptyEquals()) return;
         else {
@@ -169,6 +198,8 @@ function preEquate() {
             displayValue[displayValue.length] = '-';
         } else if (displayValue[0] === adds) {
             displayValue[displayValue.length] = '+';
+        } else if (displayValue[0] === factorize) {
+            displayValue[displayValue.length] = displayValue[1] + '!';
         }
         operates();
     }
