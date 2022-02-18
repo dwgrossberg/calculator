@@ -15,7 +15,7 @@ body {
     margin-top: 70px;
     border: solid 1px #705e50;
     border-radius: 5%;
-    background-color: #dee3e7;
+    background-color: #f2f0f9;
     box-shadow: .5px .5px #705e50;
 
 }
@@ -127,12 +127,6 @@ body {
     transform: scale(1.02);
 }
 
-#divide,
-#factorial,
-#backspace {
-    width: 65px;
-}
-
 .containerBottom {
     display: flex;
     justify-content: space-between;
@@ -149,6 +143,15 @@ body {
 .containerBottom button:hover {
     box-shadow: 1px 1px #615245;
     transform: scale(1.02);
+}
+
+#percent,
+#exponent,
+#squareRoot,
+#factorial {
+    background-color: #b3acd7;
+
+
 }
 
 .column4,
@@ -171,24 +174,25 @@ body {
     border-radius: 2px;
     font-family: Lato, arial;
     font-size: 14px;
-    background-color: #f1f3f5;
+    background-color: #e2e0f0;
 }
 
 #plusMinus {
-    background-color: #a0afbb;
+    background-color: #d2cfe8;
     color: white;
     font-size: 18px;
 }
 
-#percent,
-#exponent,
-#squareRoot,
+#clear,
+#backspace {
+    background-color: #d7b3ac;
+}
+
 #divide,
 #multiply,
 #minus,
-#plus,
-#factorial {
-    background-color: #73899b;
+#plus {
+    background-color: #8478be;
     color: white;
     font-size: 18px;
 }
@@ -209,8 +213,6 @@ body {
 }
 
 #equal {
-    background-color: #9b8573;
-    color: white;
     font-size: 18px;
 }
 
