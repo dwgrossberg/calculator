@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 610px;
+    height: 615px;
     width: 450px;
     margin-top: 70px;
     border: solid 1px #352a5a;
@@ -35,7 +35,7 @@ body {
     font-family: Michroma, sans-serif;
     font-size: 30px;
     font-weight: 800;
-    margin-top: -30px;
+    margin-top: -35px;
     margin-bottom: -15px;
     text-shadow: .5px .5px #352a5a;
     ;

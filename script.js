@@ -156,8 +156,11 @@ function clearText() {
 backspace.addEventListener('click', () => {
     if (operatorSkip()) return;
     else if (displayText.innerText.includes('√')) return;
-    let lastIndex = displayText.innerText.length;
-    displayText.innerText = displayText.innerText.substring(0, lastIndex - 1);
+    let lastIndexDisplay = displayText.innerText.length;
+    displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
+    let lastIndexChain = chainDisplayText.innerText.length;
+    chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChain - 1);
+    console.log(lastIndexChain);
     console.log(Number(displayText.innerText));
 })
 
