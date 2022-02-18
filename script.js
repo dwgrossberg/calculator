@@ -112,13 +112,17 @@ function operates() {
         }
     } else {
         if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
-            if (chainDisplayText.innerText.length > 0) {
+            if (chainDisplayText.innerText.includes('~~~')) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
-            if (chainDisplayText.innerText.length > 0) {
+            if (chainDisplayText.innerText.includes('~~~')) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
@@ -160,6 +164,10 @@ backspace.addEventListener('click', () => {
     displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
     let lastIndexChain = chainDisplayText.innerText.length;
     chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChain - 1);
+    if (displayText.innerText === '' && chainDisplayText.innerText.length > 0 && displayValue.length === 0) {
+        chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChain - 3); //cuts out the equals sign
+        chainDisplayText.innerHTML = chainDisplayText.innerText + ' ~~~ '; //distinguishes the start of a new operation value sequence and provides the chainDisplay with a key for printing
+    }
     console.log(lastIndexChain);
     console.log(Number(displayText.innerText));
 })
