@@ -13,10 +13,10 @@ body {
     height: 600px;
     width: 450px;
     margin-top: 70px;
-    border: solid 1px #594a2b;
+    border: solid 1px #352a5a;
     border-radius: 5%;
     background-color: #f7f8fa;
-    box-shadow: .5px .5px #594a2b;
+    box-shadow: .5px .5px #352a5a;
 
 }
 
@@ -26,6 +26,15 @@ body {
     justify-content: center;
     width: 400px;
     height: 500px;
+}
+
+.dasio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Michroma;
+    font-size: 30px;
+    margin-top: -10px;
 }
 
 .solar {
@@ -47,14 +56,27 @@ body {
     align-items: center;
     width: 400px;
     height: 30px;
-    border: solid .5px #705e50;
+    border: solid .5px #352a5a;
     border-radius: 3px;
-    margin-top: 20px;
     background-color: #f5f7ee;
-    box-shadow: .5px .5px #705e50;
+    box-shadow: .5px .5px #352a5a;
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+}
+
+#chainDisplayText {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: Lato, arial;
+    font-size: 14px;
+    padding-right: 25px;
+    color: #696969;
+}
+
+#chainDisplayBold {
+    color: black;
 }
 
 .chainDisplay::-webkit-scrollbar {
@@ -77,31 +99,17 @@ body {
     align-items: center;
     width: 400px;
     height: 100px;
-    border: solid .5px #705e50;
+    border: solid .5px #352a5a;
     border-radius: 3px;
     margin-top: 10px;
     background-color: #eeeafb;
-    box-shadow: .5px .5px #705e50;
+    box-shadow: .5px .5px #352a5a;
 }
 
 #displayText {
     font-family: Orbitron, Arial, Helvetica, sans-serif;
     font-size: 42px;
     margin-right: 25px;
-}
-
-#chainDisplayText {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-family: Lato, arial;
-    font-size: 14px;
-    padding-right: 25px;
-    color: #696969;
-}
-
-#chainDisplayBold {
-    color: black;
 }
 
 .topRow {
@@ -118,11 +126,11 @@ body {
     font-family: Lato, arial;
     font-size: 18px;
     color: white;
-    box-shadow: .5px .5px #705e50;
+    box-shadow: .5px .5px #352a5a;
 }
 
 .topRow button:hover {
-    box-shadow: 1px 1px #615245;
+    box-shadow: 1px 1px #2d244c;
     transform: scale(1.02);
 }
 
@@ -136,11 +144,11 @@ body {
 .containerBottom button {
     width: 65px;
     height: 55px;
-    box-shadow: .5px .5px #705e50;
+    box-shadow: .5px .5px #352a5a;
 }
 
 .containerBottom button:hover {
-    box-shadow: 1px 1px #615245;
+    box-shadow: 1px 1px #2d244c;
     transform: scale(1.02);
 }
 
