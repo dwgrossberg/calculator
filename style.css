@@ -13,10 +13,10 @@ body {
     height: 600px;
     width: 450px;
     margin-top: 70px;
-    border: solid 1px #705e50;
+    border: solid 1px #594a2b;
     border-radius: 5%;
-    background-color: #f2f0f9;
-    box-shadow: .5px .5px #705e50;
+    background-color: #f7f8fa;
+    box-shadow: .5px .5px #594a2b;
 
 }
 
@@ -37,7 +37,7 @@ body {
     height: 20px;
     border: dotted .5px white;
     border-radius: 2px;
-    background-color: #ab998a;
+    background-color: #d7c9ac;
 
 }
 
@@ -50,7 +50,7 @@ body {
     border: solid .5px #705e50;
     border-radius: 3px;
     margin-top: 20px;
-    background-color: #f7f3ef;
+    background-color: #f5f7ee;
     box-shadow: .5px .5px #705e50;
     white-space: nowrap;
     overflow-x: scroll;
@@ -80,7 +80,7 @@ body {
     border: solid .5px #705e50;
     border-radius: 3px;
     margin-top: 10px;
-    background-color: #eff7f7;
+    background-color: #eeeafb;
     box-shadow: .5px .5px #705e50;
 }
 
@@ -113,7 +113,6 @@ body {
 .topRow button {
     width: 65px;
     height: 55px;
-    background-color: #9b7389;
     border: none;
     border-radius: 2px;
     font-family: Lato, arial;
@@ -178,21 +177,20 @@ body {
 }
 
 #plusMinus {
-    background-color: #d2cfe8;
-    color: white;
+    background-color: #d3cee8;
     font-size: 18px;
 }
 
 #clear,
 #backspace {
-    background-color: #d7b3ac;
+    background-color: #c9acd7;
 }
 
 #divide,
 #multiply,
 #minus,
 #plus {
-    background-color: #8478be;
+    background-color: #acbbd7;
     color: white;
     font-size: 18px;
 }
