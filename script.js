@@ -218,6 +218,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayText.innerText = '^';
     } else if (button.id ==='percent') {
         if (operatorSkip()) return;
+        else if (displayText.innerText.includes('√')) return;
         displayValue[displayValue.length] = percentage(Number(displayText.innerText));
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayValue[displayValue.length] = displayValue[3] + '%';
@@ -257,6 +258,7 @@ function preEquate() {
 //Plus/minus button
 plusMinus.addEventListener('click', () => {
     if (operatorSkip()) return;
+    else if (displayText.innerText.includes('√')) return;
     displayText.innerText = displayText.innerText * -1;
 });
 
@@ -271,7 +273,7 @@ function emptyEquals() {
 
 function operatorSkip() {   
     if (displayText.innerText === '') return true;
-    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^') {
+    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || displayText.innerText.includes('%')) {
         return true;
     }
 }
