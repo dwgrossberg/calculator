@@ -128,13 +128,13 @@ function operates() {
     displayValue = [];
     displayText.innerText = '';
     if (isFloat(newValue)) {
-        if (roundedValue.toString().length > 10) {
+        if (roundedValue.toString().length > 12) {
             displayText.innerText = newValue.toExponential(2); //handling numbers that are too large for the display
         } else {
         displayText.innerText = roundedValue;
         }
     } else {
-        if (newValue.toString().length > 10) {
+        if (newValue.toString().length > 12) {
             displayText.innerText = newValue.toExponential(2);
         } else {
         displayText.innerText = newValue;
@@ -158,10 +158,10 @@ backspace.addEventListener('click', () => {
 numberButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '^') {
         displayText.innerText = '';
-    } else if (displayText.innerText.includes('!')) {
+    } else if (displayText.innerText.includes('!') || displayText.innerText.includes('%')) {
         return; //special case so as not to print extra numbers after factorial symbol
-    }
-    if (displayText.innerText.length < 10) {
+    } else if (displayText.innerText.includes('√')) return;
+    if (displayText.innerText.length < 12) {
         displayText.innerText = displayText.innerText + button.innerText;
         console.log(Number(displayText.innerText));
     }
@@ -256,6 +256,7 @@ function preEquate() {
 
 //Plus/minus button
 plusMinus.addEventListener('click', () => {
+    if (operatorSkip()) return;
     displayText.innerText = displayText.innerText * -1;
 });
 
@@ -270,7 +271,7 @@ function emptyEquals() {
 
 function operatorSkip() {   
     if (displayText.innerText === '') return true;
-    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || displayText.innerText === '%') {
+    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^') {
         return true;
     }
 }
