@@ -82,7 +82,7 @@ function operates() {
     let roundedValue = newValue.toFixed(2);
     console.log(displayValue);
     console.log(newValue);
-    if (displayValue.length>6) { //printing percentage operations to the chainDisplay
+    if (displayValue.length > 6) { //printing percentage operations to the chainDisplay
         if (isFloat(newValue)) {
             if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
@@ -98,13 +98,17 @@ function operates() {
         }
     } else if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (isFloat(newValue)) {
-            if (chainDisplayText.innerText.length > 0) {
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFloat(2) + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
-            if (chainDisplayText.innerText.length > 0) {
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
@@ -112,16 +116,16 @@ function operates() {
         }
     } else {
         if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
-            if (chainDisplayText.innerText.includes('~~~')) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
-            if (chainDisplayText.innerText.includes('~~~')) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else {
@@ -158,19 +162,19 @@ function clearText() {
 }
 
 backspace.addEventListener('click', () => {
-    if (operatorSkip()) return;
-    else if (displayText.innerText.includes('√')) return;
+    if (displayText.innerText === '') return;
+    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || displayText.innerText.includes('%')) {
+        return;
+    } else if (displayText.innerText.includes('√')) return;
     let lastIndexDisplay = displayText.innerText.length;
     displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
     let lastIndexChain = chainDisplayText.innerText.length;
-    chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChain - 1);
+    let equalChain = chainDisplayText.innerText.lastIndexOf('=');
     if (displayText.innerText === '' && chainDisplayText.innerText.length > 0 && displayValue.length === 0) {
-        chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChain - 3); //cuts out the equals sign
+        chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, equalChain); //cuts out the equals sign
         chainDisplayText.innerHTML = chainDisplayText.innerText + ' ~~~ '; //distinguishes the start of a new operation value sequence and provides the chainDisplay with a key for printing
     }
-    console.log(lastIndexChain);
-    console.log(Number(displayText.innerText));
-})
+});
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '^') {
