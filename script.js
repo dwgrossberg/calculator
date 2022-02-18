@@ -127,7 +127,9 @@ function operates() {
     }
     displayValue = [];
     displayText.innerText = '';
-    if (isFloat(newValue)) {
+    if (isNaN(newValue)) {
+        displayText.innerText = 'whoops, try again';
+    } else if (isFloat(newValue)) {
         if (roundedValue.toString().length > 12) {
             displayText.innerText = newValue.toExponential(2); //handling numbers that are too large for the display
         } else {
@@ -143,13 +145,17 @@ function operates() {
 }
 
 //Populate display when number buttons are clicked
-clear.addEventListener('click', () => {
+clear.addEventListener('click', () => clearText());
+
+function clearText() {
     displayText.innerText = '';
     chainDisplayText.innerText = '';
     displayValue = [];
-});
+}
 
 backspace.addEventListener('click', () => {
+    if (operatorSkip()) return;
+    else if (displayText.innerText.includes('√')) return;
     let lastIndex = displayText.innerText.length;
     displayText.innerText = displayText.innerText.substring(0, lastIndex - 1);
     console.log(Number(displayText.innerText));
