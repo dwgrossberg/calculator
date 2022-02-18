@@ -11,6 +11,7 @@ const plus = document.getElementById('plus');
 const equal = document.getElementById('equal');
 const decimal = document.getElementById('decimal');
 const zero = document.getElementById('zero');
+const doubleZero = document.getElementById('doubleZero');
 const one = document.getElementById('one');
 const two = document.getElementById('two');
 const three = document.getElementById('three');
@@ -28,7 +29,7 @@ const factorial = document.getElementById('factorial');
 
 let displayValue = []; //empty array set up to hold ongoing calculator values
 
-let numberButtons = [zero, one, two, three, four, five, six, seven, eight, nine];
+let numberButtons = [doubleZero, zero, one, two, three, four, five, six, seven, eight, nine];
 
 let operatorButtons = [divide, multiply, minus, plus, percent, exponent, squareRoot, factorial, equal];
 

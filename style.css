@@ -104,14 +104,14 @@ body {
     color: black;
 }
 
-.clearDelete {
+.topRow {
     display: flex;
     justify-content: space-between;
     margin-top: 30px
 }
 
-.clearDelete button {
-    width: 150px;
+.topRow button {
+    width: 65px;
     height: 55px;
     background-color: #9b7389;
     border: none;
@@ -122,7 +122,7 @@ body {
     box-shadow: .5px .5px #705e50;
 }
 
-.clearDelete button:hover {
+.topRow button:hover {
     box-shadow: 1px 1px #615245;
     transform: scale(1.02);
 }
