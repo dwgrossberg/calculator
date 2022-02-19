@@ -85,13 +85,13 @@ function operates() {
     if (displayValue.length > 6) { //printing percentage operations to the chainDisplay
         if (isFloat(newValue)) {
             if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
             if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+                chainDisplayText.innerHTML = chainDisplayText.innerText  + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             }
