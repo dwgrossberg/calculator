@@ -82,15 +82,37 @@ function operates() {
     let roundedValue = newValue.toFixed(2);
     console.log(displayValue);
     console.log(newValue);
-    if (displayValue.length > 6) { //printing percentage operations to the chainDisplay
+    if (false) { //printing percentage operations with first operand as percent number to the chainDisplay
         if (isFloat(newValue)) {
-            if (chainDisplayText.innerText.length > 0) {
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displa
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else {
+                chainDisplayText.innerHTML = displayValue[2] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            }
+        } else {
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { 
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
+                chainDisplayText.innerHTML = chainDisplayText.innerText  + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            } else {
+                chainDisplayText.innerHTML = (displayValue[1] * 100 + '%') + displayValue[2] + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            }
+        }
+    } else if (displayValue.length > 6) { //printing percentage operations with second operand as percent number to the chainDisplay
+        if (isFloat(newValue)) {
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displayValue
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
-            if (chainDisplayText.innerText.length > 0) {
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { 
+                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText  + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
@@ -98,8 +120,8 @@ function operates() {
         }
     } else if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (isFloat(newValue)) {
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFloat(2) + '</span>';
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displayValue
+                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
@@ -116,7 +138,7 @@ function operates() {
         }
     } else {
         if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
+            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displayValue
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
@@ -239,9 +261,12 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayText.innerText = '^';
     } else if (button.id ==='percent') {
         if (operatorSkip()) return;
-        else if (displayText.innerText.includes('√')) return;
-        if (displayValue.length === 0) { //special condition for using ther % operator on single operands
-            displayText.innerText = percentage(Number(displayText.innerText));
+        else if (displayText.innerText.includes('√')) preEquate();
+        if (displayValue.length === 0) { //special condition for using the % operator with the first operand
+            displayValue[displayValue.length] = percentage;
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayValue[displayValue.length] = displayValue[1] + '%';
+            displayText.innerText = displayText.innerText + '%';
         } else {
             displayValue[displayValue.length] = percentage(Number(displayText.innerText));
             displayValue[displayValue.length] = Number(displayText.innerText);
@@ -298,7 +323,7 @@ function emptyEquals() {
 
 function operatorSkip() {   
     if (displayText.innerText === '') return true;
-    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || displayText.innerText.includes('%')) {
+    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || (displayText.innerText.includes('%') && displayValue[0] === Number)) {
         return true;
     }
 }
