@@ -240,10 +240,14 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     } else if (button.id ==='percent') {
         if (operatorSkip()) return;
         else if (displayText.innerText.includes('√')) return;
-        displayValue[displayValue.length] = percentage(Number(displayText.innerText));
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayValue[displayValue.length] = displayValue[3] + '%';
-        displayText.innerText = displayText.innerText + '%';
+        if (displayValue.length === 0) { //special condition for using ther % operator on single operands
+            displayText.innerText = percentage(Number(displayText.innerText));
+        } else {
+            displayValue[displayValue.length] = percentage(Number(displayText.innerText));
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayValue[displayValue.length] = displayValue[3] + '%';
+            displayText.innerText = displayText.innerText + '%';
+        }
     } else if (button.id === 'equal') {
         if (emptyEquals()) return;
         else {
