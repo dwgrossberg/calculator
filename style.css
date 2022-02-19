@@ -38,7 +38,6 @@ body {
     margin-top: -35px;
     margin-bottom: -15px;
     text-shadow: .5px .5px #352a5a;
-    ;
 }
 
 .solar {
@@ -51,7 +50,6 @@ body {
     border: dotted .5px white;
     border-radius: 2px;
     background-color: #d7c9ac;
-
 }
 
 .chainDisplay {
@@ -64,37 +62,45 @@ body {
     border-radius: 3px;
     background-color: #f5f7ee;
     box-shadow: .5px .5px #352a5a;
-    white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    white-space: nowrap;
+    
+    
 }
 
 #chainDisplayText {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     font-family: Lato, arial;
     font-size: 14px;
     padding-right: 25px;
     color: #696969;
+
+    
+    
+    
 }
 
 #chainDisplayBold {
     color: black;
 }
 
+
 .chainDisplay::-webkit-scrollbar {
     -webkit-appearance: none;
-    height: 5px;
+    height: 10px;
 }
-
+/*
 .chainDisplay::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px #d6c2ae;
     border-radius: 1px;
 }
-
+*/
 .chainDisplay::-webkit-scrollbar-thumb {    
-    background: black;
+    background: pink;
+    height: 2px;
+
 }
 
 .display {

@@ -110,6 +110,8 @@ function operates() {
         if (isFloat(newValue)) {
             if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displayValue
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            //} else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use
+            //    chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(newValue)) + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
@@ -178,7 +180,6 @@ backspace.addEventListener('click', () => {
     } else if (displayText.innerText.includes('√')) return;
     let lastIndexDisplay = displayText.innerText.length;
     displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
-    let lastIndexChain = chainDisplayText.innerText.length;
     let equalChain = chainDisplayText.innerText.lastIndexOf('=');
     if (displayText.innerText === '' && chainDisplayText.innerText.length > 0 && displayValue.length === 0) {
         chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, equalChain); //cuts out the equals sign
