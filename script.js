@@ -82,23 +82,11 @@ function operates() {
     let roundedValue = newValue.toFixed(2);
     console.log(displayValue);
     console.log(newValue);
-    if (false) { //printing percentage operations with first operand as percent number to the chainDisplay
-        if (isFloat(newValue)) {
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displa
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
-            } else if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
-            } else {
-                chainDisplayText.innerHTML = displayValue[2] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
-            }
+    if (displayValue[0] === percentage) { //special case printing first operand percent operations to the chainDisplay
+        if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displa
+            chainDisplayText.innerHTML = chainDisplayText.innerText + '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
         } else {
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { 
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
-            } else if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText  + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-            } else {
-                chainDisplayText.innerHTML = (displayValue[1] * 100 + '%') + displayValue[2] + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-            }
+            chainDisplayText.innerHTML = '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
         }
     } else if (displayValue.length > 6) { //printing percentage operations with second operand as percent number to the chainDisplay
         if (isFloat(newValue)) {
@@ -265,7 +253,6 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         if (displayValue.length === 0) { //special condition for using the % operator with the first operand
             displayValue[displayValue.length] = percentage;
             displayValue[displayValue.length] = Number(displayText.innerText);
-            displayValue[displayValue.length] = displayValue[1] + '%';
             displayText.innerText = displayText.innerText + '%';
         } else {
             displayValue[displayValue.length] = percentage(Number(displayText.innerText));
