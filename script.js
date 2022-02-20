@@ -195,14 +195,14 @@ backspace.addEventListener('click', () => {
     if (displayText.innerText === '' && chainDisplayText.innerText.length > 0 && displayValue.length === 0) {
         chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexEqual); //cuts out the equals sign
         chainDisplayText.innerHTML = chainDisplayText.innerText + ' ~~~ '; //distinguishes the start of a new operation value sequence and provides the chainDisplay with a key for printing
-    } else if (chainDisplayText.innerText.length > 0 && displayValue.length === 0) {
-        let lastIndexDot = chainDisplayText.innerText.lastIndexOf('•');
-        if (chainDisplayText.innerText.includes('•')) {
-            chainDisplayText.innerHTML = (chainDisplayText.innerText.substring(lastIndexDot) + '•' + chainDisplayText.innerText.substring(0, lastIndexDot - 1)).split('•').reverse('•').join('•'); 
+    } else if (chainDisplayText.innerText.length > 0 && displayValue.length === 0) { //updating the chainDisplay when the user presses backspace
+        console.log(chainDisplayText.innerText[lastIndexEqual - 1]);
+        if (chainDisplayText.innerText[lastIndexEqual - 1] === '!') {
+            chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChainDisplay);
         } else {
-            chainDisplayText.innerHTML = (chainDisplayText.innerText.substring(lastIndexEqual) + '•' + chainDisplayText.innerText.substring(0, lastIndexEqual - 1)).split('•').reverse('•').join('•'); 
+            chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexEqual) + '!' + chainDisplayText.innerText.substring(lastIndexEqual);
+            chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChainDisplay);
         }
-        chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChainDisplay - 1);
     }
 });
 
