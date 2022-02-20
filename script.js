@@ -192,12 +192,14 @@ backspace.addEventListener('click', () => {
     console.log('lastDisplayValue = ' + lastDisplayValue);
     if (displayText.innerText === '') return;
 
-    if (displayText.innerText === '-' && displayValue.length === 0) {
 
-    }
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || (displayText.innerText === '-' && displayValue.length > 0) || displayText.innerText === '!' || displayText.innerText === '^') {
         displayValue = [];
-        displayText.innerText = oldValue[0];
+        if (oldValue[0]) {
+            displayText.innerText = oldValue[0];
+        } else {
+            displayText.innerText = lastDisplayValue[0];
+        }
     } else if (displayText.innerText.includes('√') || displayText.innerText.includes('%')) {
         //in progress
     } else {    
@@ -207,7 +209,7 @@ backspace.addEventListener('click', () => {
     }
 
 
-    if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//') { //updating the chainDisplay when the user presses backspace
+    if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && (displayText.innerText !== '÷' || displayText.innerText !== 'x' || displayText.innerText !== '+' || (displayText.innerText !== '-' || displayText.innerText !== '!' || displayText.innerText !== '^'))) { //updating the chainDisplay when the user presses backspace
         chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace to change the previous result
     }
 });
