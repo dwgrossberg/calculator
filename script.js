@@ -192,10 +192,12 @@ backspace.addEventListener('click', () => {
     console.log('lastDisplayValue = ' + lastDisplayValue);
     if (displayText.innerText === '') return;
 
+    if (displayText.innerText === '-' && displayValue.length === 0) {
 
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '!' || displayText.innerText === '^') {
+    }
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || (displayText.innerText === '-' && displayValue.length > 0) || displayText.innerText === '!' || displayText.innerText === '^') {
         displayValue = [];
-        displayText.innerText = lastDisplayValue[0];
+        displayText.innerText = oldValue[0];
     } else if (displayText.innerText.includes('√') || displayText.innerText.includes('%')) {
         //in progress
     } else {    
@@ -323,7 +325,7 @@ plusMinus.addEventListener('click', () => {
     else if (displayText.innerText.includes('√')) return;
     displayText.innerText = displayText.innerText * -1;
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//') {
+    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0) {
         chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';
     }
 });
