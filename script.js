@@ -194,12 +194,6 @@ backspace.addEventListener('click', () => {
     displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
     if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//') { //updating the chainDisplay when the user presses backspace
         chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace 
-    //} else if (chainDisplayText.innerText.length > 0 && displayValue.length === 0) { //updating the chainDisplay when the user presses backspace
-        //if (chainDisplayText.innerText[lastIndexEqual - 1] === '/') { //avoid duplicate printing of ! to the chainDisplay when hitting backspace
-        //    chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChainDisplay);
-        //} else {
-        //    chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';
-        //}
     }
 });
 
@@ -314,6 +308,10 @@ plusMinus.addEventListener('click', () => {
     if (operatorSkip()) return;
     else if (displayText.innerText.includes('√')) return;
     displayText.innerText = displayText.innerText * -1;
+    let lastIndexChainDisplay = chainDisplayText.innerText.length;
+    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//') {
+        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';
+    }
 });
 
 //Handling strange or illogical user inputs on the operator buttons
