@@ -29,7 +29,9 @@ const factorial = document.getElementById('factorial');
 
 let displayValue = []; //empty array set up to hold ongoing calculator values
 
-let oldValues = [] //empty array for holding old calculated values to manipulate the chainDisplay with
+let oldValue = [] //empty array for holding old calculated values to manipulate the chainDisplay with
+
+let lastDisplayValue = [] //empty array for calling back a number after hitting backspace on an operation key
 
 let numberButtons = [doubleZero, zero, one, two, three, four, five, six, seven, eight, nine];
 
@@ -83,9 +85,9 @@ function operates() {
     let newValue = displayValue[0](displayValue[1], displayValue[2]);
     let roundedValue = newValue.toFixed(2);
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    console.log(displayValue);
-    console.log(newValue);
-    console.log(oldValues)
+    console.log('displayValue = ' + displayValue);
+    console.log('newValue = ' + newValue);
+    console.log('oldValue = ' + oldValue);
     if (displayValue[0] === percentage) { //special case printing first operand percent operations to the chainDisplay
         if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displa
             chainDisplayText.innerHTML = chainDisplayText.innerText + '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
@@ -116,7 +118,7 @@ function operates() {
             if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use with backspace button
-                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValues[0]))) + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValue[0]))) + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else {
@@ -126,7 +128,7 @@ function operates() {
             if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use
-                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValues[0]))) + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValue[0]))) + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else {
@@ -159,18 +161,18 @@ function operates() {
     } else if (isFloat(newValue)) {
         if (roundedValue.toString().length > 12) {
             displayText.innerText = newValue.toExponential(2); //handling numbers that are too large for the display
-            oldValues[0] = newValue.toExponential(2);
+            oldValue[0] = newValue.toExponential(2);
         } else {
         displayText.innerText = roundedValue;
-        oldValues[0] = roundedValue;
+        oldValue[0] = roundedValue;
         }
     } else {
         if (newValue.toString().length > 12) {
             displayText.innerText = newValue.toExponential(2);
-            oldValues[0] = newValue.toExponential(2);
+            oldValue[0] = newValue.toExponential(2);
         } else {
         displayText.innerText = newValue;
-        oldValues[0] = newValue;
+        oldValue[0] = newValue;
         }
     }
 }
@@ -185,15 +187,26 @@ function clearText() {
 }
 
 backspace.addEventListener('click', () => {
-    if (displayText.innerText === '') return;
-    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || displayText.innerText.includes('%')) {
-        return;
-    } else if (displayText.innerText.includes('√')) return;
     let lastIndexDisplay = displayText.innerText.length;
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
+    console.log('lastDisplayValue = ' + lastDisplayValue);
+    if (displayText.innerText === '') return;
+
+
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '!' || displayText.innerText === '^') {
+        displayValue = [];
+        displayText.innerText = lastDisplayValue[0];
+    } else if (displayText.innerText.includes('√') || displayText.innerText.includes('%')) {
+        //in progress
+    } else {    
+        displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
+        lastDisplayValue[0] = Number(displayText.innerText);
+        console.log('displayOutput = ' + Number(displayText.innerText));
+    }
+
+
     if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//') { //updating the chainDisplay when the user presses backspace
-        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace 
+        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace to change the previous result
     }
 });
 
@@ -205,7 +218,8 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
     } else if (displayText.innerText.includes('√')) return;
     if (displayText.innerText.length < 12) {
         displayText.innerText = displayText.innerText + button.innerText;
-        console.log(Number(displayText.innerText));
+        lastDisplayValue[0] = Number(displayText.innerText);
+        console.log('displayOutput = ' + Number(displayText.innerText));
     }
 }));
 
@@ -219,54 +233,54 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
         if (operatorSkip()) return;
         preEquate();
-        displayValue[displayValue.length] = divides;
+        displayValue[0] = divides;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '÷';
     } else if (button.id === 'multiply') {
         if (operatorSkip()) return;
         preEquate();
-        displayValue[displayValue.length] = multiplies;
+        displayValue[0] = multiplies;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = 'x';
     } else if (button.id === 'minus') {
         if (operatorSkip()) return;
         preEquate();
-        displayValue[displayValue.length] = subtracts;
+        displayValue[0] = subtracts;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '-';    
     } else if (button.id === 'plus') {
         if (operatorSkip()) return;
         preEquate();
-        displayValue[displayValue.length] = adds;
+        displayValue[0] = adds;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '+';
     } else if (button.id ==='factorial') {
         if (operatorSkip()) return;
         preEquate();
-        displayValue[displayValue.length] = factorize;
+        displayValue[0] = factorize;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = displayText.innerText + '!';
     } else if (button.id ==='squareRoot') {
         if (operatorSkip()) return;
         preEquate();
-        displayValue[displayValue.length] = squareRoots;
+        displayValue[0] = squareRoots;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '√' + displayText.innerText;
     } else if (button.id ==='exponent') {
         if (operatorSkip()) return;
         preEquate();
-        displayValue[displayValue.length] = power;
+        displayValue[0] = power;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '^';
     } else if (button.id ==='percent') {
         if (operatorSkip()) return;
         else if (displayText.innerText.includes('√')) preEquate();
         if (displayValue.length === 0) { //special condition for using the % operator with the first operand
-            displayValue[displayValue.length] = percentage;
+            displayValue[0] = percentage;
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = displayText.innerText + '%';
         } else {
-            displayValue[displayValue.length] = percentage(Number(displayText.innerText));
+            displayValue[0] = percentage(Number(displayText.innerText));
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayValue[displayValue.length] = displayValue[3] + '%';
             displayText.innerText = displayText.innerText + '%';
@@ -280,7 +294,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 function preEquate() {
-    if (displayValue.length > 0) {
+    if (displayValue[0]) {
         displayValue[displayValue.length] = Number(displayText.innerText);
         if (displayValue[0] === divides) { //saving the operation symbol to print in the chainDisplay
             displayValue[displayValue.length] = '÷';
@@ -324,6 +338,7 @@ function emptyEquals() {
 }
 
 function operatorSkip() {   
+    if (displayText.innerText === '' && displayValue[1]) return false;
     if (displayText.innerText === '') return true;
     else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || (displayText.innerText.includes('%') && displayValue[0] === Number)) {
         return true;
