@@ -82,18 +82,19 @@ function isFloat(n) {
 function operates() {
     let newValue = displayValue[0](displayValue[1], displayValue[2]);
     let roundedValue = newValue.toFixed(2);
+    let lastIndexChainDisplay = chainDisplayText.innerText.length;
     console.log(displayValue);
     console.log(newValue);
     console.log(oldValues)
     if (displayValue[0] === percentage) { //special case printing first operand percent operations to the chainDisplay
-        if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displa
+        if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displa
             chainDisplayText.innerHTML = chainDisplayText.innerText + '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
         } else {
             chainDisplayText.innerHTML = '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
         }
     } else if (displayValue.length > 6) { //printing percentage operations with second operand as percent number to the chainDisplay
         if (isFloat(newValue)) {
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displayValue
+            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
@@ -101,7 +102,7 @@ function operates() {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { 
+            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { 
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText  + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
@@ -112,9 +113,9 @@ function operates() {
     } else if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (isFloat(newValue)) {
             console.log(chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(newValue.toFixed(2)))))
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displayValue
+            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
-            } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use
+            } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use with backspace button
                 chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValues[0]))) + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
@@ -122,7 +123,7 @@ function operates() {
                 chainDisplayText.innerHTML = displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
+            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use
                 chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValues[0]))) + displayValue[3] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
@@ -134,7 +135,7 @@ function operates() {
         }
     } else {
         if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') { //printing new operations to the chainDisplay after a user deletes the displayValue
+            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
@@ -142,7 +143,7 @@ function operates() {
                 chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             }
         } else {
-            if (chainDisplayText.innerText.substring(chainDisplayText.innerText.length - 1, chainDisplayText.innerText.length) === '~') {
+            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             } else if (chainDisplayText.innerText.length > 0) {
                 chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
@@ -190,19 +191,15 @@ backspace.addEventListener('click', () => {
     } else if (displayText.innerText.includes('√')) return;
     let lastIndexDisplay = displayText.innerText.length;
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    let lastIndexEqual = chainDisplayText.innerText.lastIndexOf('=');
     displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
-    if (displayText.innerText === '' && chainDisplayText.innerText.length > 0 && displayValue.length === 0) {
-        chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexEqual); //cuts out the equals sign
-        chainDisplayText.innerHTML = chainDisplayText.innerText + ' ~~~ '; //distinguishes the start of a new operation value sequence and provides the chainDisplay with a key for printing
-    } else if (chainDisplayText.innerText.length > 0 && displayValue.length === 0) { //updating the chainDisplay when the user presses backspace
-        console.log(chainDisplayText.innerText[lastIndexEqual - 1]);
-        if (chainDisplayText.innerText[lastIndexEqual - 1] === '!') {
-            chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChainDisplay);
-        } else {
-            chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexEqual) + '!' + chainDisplayText.innerText.substring(lastIndexEqual);
-            chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChainDisplay);
-        }
+    if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//') { //updating the chainDisplay when the user presses backspace
+        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace 
+    //} else if (chainDisplayText.innerText.length > 0 && displayValue.length === 0) { //updating the chainDisplay when the user presses backspace
+        //if (chainDisplayText.innerText[lastIndexEqual - 1] === '/') { //avoid duplicate printing of ! to the chainDisplay when hitting backspace
+        //    chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, lastIndexChainDisplay);
+        //} else {
+        //    chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';
+        //}
     }
 });
 
