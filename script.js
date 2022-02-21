@@ -255,7 +255,10 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
         if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText === '') return;
         else if (displayText.innerText.substring(0, 1) === '√') {
-
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + '÷';
+            displayValue[0] = divides;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
         } else if (displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%') {
             displayValue = [];
             displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + '÷';
@@ -266,31 +269,61 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[0] = divides;
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = displayText.innerText + '÷';
-        }
-
-        //if (operatorSkip()) return;
-        
-        
-        
-        
+        }        
     } else if (button.id === 'multiply') {
-        //if (operatorSkip()) return;
-        preEquate();
-        displayValue[0] = multiplies;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText =  displayText.innerText + 'x';
+        if (displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText === '') return;
+        else if (displayText.innerText.substring(0, 1) === '√') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + 'x';
+            displayValue[0] = multiplies;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + 'x';
+            displayValue[0] = multiplies;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else {
+            preEquate();
+            displayValue[0] = multiplies;
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayText.innerText =  displayText.innerText + 'x';
+        }
     } else if (button.id === 'minus') {
-        //if (operatorSkip()) return;
-        preEquate();
-        displayValue[0] = subtracts;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '-';    
-    } else if (button.id ===  displayText.innerText + 'plus') {
-        //if (operatorSkip()) return;
-        preEquate();
-        displayValue[0] = adds;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText =  displayText.innerText + '+';
+        if (displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText === '') return;
+        else if (displayText.innerText.substring(0, 1) === '√') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + '-';
+            displayValue[0] = subtracts;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + '-';
+            displayValue[0] = subtracts;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else {
+            preEquate();
+            displayValue[0] = subtracts;
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayText.innerText = displayText.innerText + '-';    
+        }
+    } else if (button.id === 'plus') {
+        if (displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText === '') return;
+        else if (displayText.innerText.substring(0, 1) === '√') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + '+';
+            displayValue[0] = adds;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + '+';
+            displayValue[0] = adds;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else {
+            preEquate();
+            displayValue[0] = adds;
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayText.innerText =  displayText.innerText + '+';
+        }
     } else if (button.id ==='factorial') {
         //if (operatorSkip()) return;
         preEquate();
@@ -370,7 +403,7 @@ plusMinus.addEventListener('click', () => {
     displayText.innerText = displayText.innerText * -1;
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
     if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0) {
-        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';
+        chainDisplayText.innerHTML = chainDisplayText.innerText +  'x-1 = ' + '<span id="chainDisplayBold">' + displayText.innerText + '</span>';;
     }
 });
 
