@@ -253,43 +253,58 @@ decimal.addEventListener('click', () => {
 //Operator populator
 operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
-        if (operatorSkip()) return;
-        preEquate();
-        displayValue[0] = divides;
-        displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = displayText.innerText + '÷';
+        if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText === '') return;
+        else if (displayText.innerText.substring(0, 1) === '√') {
+
+        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + '÷';
+            displayValue[0] = divides;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else {
+            preEquate();
+            displayValue[0] = divides;
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayText.innerText = displayText.innerText + '÷';
+        }
+
+        //if (operatorSkip()) return;
+        
+        
+        
+        
     } else if (button.id === 'multiply') {
-        if (operatorSkip()) return;
+        //if (operatorSkip()) return;
         preEquate();
         displayValue[0] = multiplies;
         displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = 'x';
+        displayText.innerText =  displayText.innerText + 'x';
     } else if (button.id === 'minus') {
-        if (operatorSkip()) return;
+        //if (operatorSkip()) return;
         preEquate();
         displayValue[0] = subtracts;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '-';    
-    } else if (button.id === 'plus') {
-        if (operatorSkip()) return;
+    } else if (button.id ===  displayText.innerText + 'plus') {
+        //if (operatorSkip()) return;
         preEquate();
         displayValue[0] = adds;
         displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '+';
+        displayText.innerText =  displayText.innerText + '+';
     } else if (button.id ==='factorial') {
-        if (operatorSkip()) return;
+        //if (operatorSkip()) return;
         preEquate();
         displayValue[0] = factorize;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = displayText.innerText + '!';
     } else if (button.id ==='squareRoot') {
-        if (operatorSkip()) return;
+        //if (operatorSkip()) return;
         preEquate();
         displayValue[0] = squareRoots;
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = '√' + displayText.innerText;
     } else if (button.id ==='exponent') {
-        if (operatorSkip()) return;
+        //if (operatorSkip()) return;
         preEquate();
         displayValue[0] = power;
         displayValue[displayValue.length] = Number(displayText.innerText);
@@ -321,14 +336,19 @@ function preEquate() {
         //displayValue[displayValue.length] = Number(displayText.innerText);
         if (displayValue[0] === divides) { //saving the operation symbol to print in the chainDisplay
             let operator = displayText.innerText.lastIndexOf('÷');
-            console.log(displayText.innerText.substring(operator));
             displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
             displayValue[displayValue.length] = '÷';
         } else if (displayValue[0] === multiplies) {
+            let operator = displayText.innerText.lastIndexOf('x');
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
             displayValue[displayValue.length] = 'x';
         } else if (displayValue[0] === subtracts) {
+            let operator = displayText.innerText.lastIndexOf('-');
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
             displayValue[displayValue.length] = '-';
         } else if (displayValue[0] === adds) {
+            let operator = displayText.innerText.lastIndexOf('+');
+             displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
             displayValue[displayValue.length] = '+';
         } else if (displayValue[0] === factorize) {
             displayValue[displayValue.length] = displayValue[1] + '!';
@@ -366,7 +386,7 @@ function emptyEquals() {
 function operatorSkip() {   
     if (displayText.innerText === '' && displayValue[1]) return false;
     if (displayText.innerText === '') return true;
-    else if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '-' || displayText.innerText === '+' || displayText.innerText === '!' || displayText.innerText === '√' || displayText.innerText === '^' || (displayText.innerText.includes('%') && displayValue[0] === Number)) {
+    else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.includes('√') || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || (displayText.innerText.substring(displayText.innerText.length - 1) === '%' && displayValue[0] === Number)) {
         return true;
     }
 }
