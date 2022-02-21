@@ -195,7 +195,7 @@ backspace.addEventListener('click', () => {
 
     if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || (displayText.innerText === '-' && displayValue.length > 0) || displayText.innerText === '!' || displayText.innerText === '^') {
         displayValue = [];
-        if (oldValue[0]) {
+        if (chainDisplayText.innerText.length > 0) {
             displayText.innerText = oldValue[0];
         } else {
             displayText.innerText = lastDisplayValue[0];
@@ -229,7 +229,14 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 
 decimal.addEventListener('click', () => {
     if (displayText.innerText.includes('.')) return; //only allow one decimal for each display value
-    displayText.innerText = displayText.innerText + decimal.innerText;
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '^') {
+        displayText.innerText = '';
+    }
+    if (displayText.innerText.length > 0) {
+        displayText.innerText = displayText.innerText + decimal.innerText;
+    } else {
+        displayText.innerText = 0 + decimal.innerText;
+    }
 })
 
 //Operator populator
