@@ -27,15 +27,18 @@ const exponent = document.getElementById('exponent');
 const squareRoot = document.getElementById('squareRoot');
 const factorial = document.getElementById('factorial');
 
+const numberButtons = [doubleZero, zero, one, two, three, four, five, six, seven, eight, nine];
+
+const operatorButtons = [divide, multiply, minus, plus, percent, exponent, squareRoot, factorial, equal];
+
+const operators = ['÷', 'x', '-', '+', '!', '√', '^', '%']
+
 let displayValue = []; //empty array set up to hold ongoing calculator values
 
 let oldValue = [] //empty array for holding old calculated values to manipulate the chainDisplay with
 
 let lastDisplayValue = [] //empty array for calling back a number after hitting backspace on an operation key
 
-let numberButtons = [doubleZero, zero, one, two, three, four, five, six, seven, eight, nine];
-
-let operatorButtons = [divide, multiply, minus, plus, percent, exponent, squareRoot, factorial, equal];
 
 //Basic math operator functions
 function adds(a, b) {
@@ -205,7 +208,6 @@ backspace.addEventListener('click', () => {
         if (displayValue[0] === percentage) {
             displayValue = [];
         } else {
-            console.log(displayValue);
             displayValue[2], displayValue[4] = displayValue[3]; //sets up printing to the chainDisplay
         }
         displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
@@ -233,7 +235,6 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText.length < 12) {
         displayText.innerText = displayText.innerText + button.innerText;
         lastDisplayValue[0] = Number(displayText.innerText);
-        console.log('displayOutput = ' + Number(displayText.innerText));
     }
 }));
 
@@ -256,7 +257,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         preEquate();
         displayValue[0] = divides;
         displayValue[displayValue.length] = Number(displayText.innerText);
-        displayText.innerText = '÷';
+        displayText.innerText = displayText.innerText + '÷';
     } else if (button.id === 'multiply') {
         if (operatorSkip()) return;
         preEquate();
@@ -316,8 +317,12 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
 
 function preEquate() {
     if (displayValue[0]) {
-        displayValue[displayValue.length] = Number(displayText.innerText);
+        
+        //displayValue[displayValue.length] = Number(displayText.innerText);
         if (displayValue[0] === divides) { //saving the operation symbol to print in the chainDisplay
+            let operator = displayText.innerText.lastIndexOf('÷');
+            console.log(displayText.innerText.substring(operator));
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
             displayValue[displayValue.length] = '÷';
         } else if (displayValue[0] === multiplies) {
             displayValue[displayValue.length] = 'x';
