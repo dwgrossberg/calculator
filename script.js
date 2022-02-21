@@ -201,8 +201,22 @@ backspace.addEventListener('click', () => {
         } else {
             displayText.innerText = lastDisplayValue[0];
         }
-    } else if (displayText.innerText.includes('√') || displayText.innerText.includes('%') || displayText.innerText.includes('!')) {
-        //in progress
+    } else if (displayText.innerText.includes('%'))  {
+        if (displayValue[0] === percentage) {
+            displayValue = [];
+        } else {
+            console.log(displayValue);
+            displayValue[2], displayValue[4] = displayValue[3]; //sets up printing to the chainDisplay
+        }
+        displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
+    } else if (displayText.innerText.includes('!')) {
+        displayValue = [];
+   
+   
+    } else if (displayText.innerText.includes('√')) {
+        displayValue = [];
+
+
     } else {    
         displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
         lastDisplayValue[0] = Number(displayText.innerText);
