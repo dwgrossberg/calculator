@@ -191,26 +191,22 @@ backspace.addEventListener('click', () => {
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
     console.log('lastDisplayValue = ' + lastDisplayValue);
     if (displayText.innerText === '') return;
-
-
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || (displayText.innerText === '-' && displayValue.length > 0) || displayText.innerText === '!' || displayText.innerText === '^') {
+    if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && (displayText.innerText !== '÷' || displayText.innerText !== 'x' || displayText.innerText !== '+' || (displayText.innerText !== '-' || displayText.innerText !== '!' || displayText.innerText !== '^'))) { //updating the chainDisplay when the user presses backspace
+        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace to change the previous result
+    }
+    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || (displayText.innerText === '-' && displayValue.length > 0) || displayText.innerText === '^') {
         displayValue = [];
         if (chainDisplayText.innerText.length > 0) {
             displayText.innerText = oldValue[0];
         } else {
             displayText.innerText = lastDisplayValue[0];
         }
-    } else if (displayText.innerText.includes('√') || displayText.innerText.includes('%')) {
+    } else if (displayText.innerText.includes('√') || displayText.innerText.includes('%') || displayText.innerText.includes('!')) {
         //in progress
     } else {    
         displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
         lastDisplayValue[0] = Number(displayText.innerText);
         console.log('displayOutput = ' + Number(displayText.innerText));
-    }
-
-
-    if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && (displayText.innerText !== '÷' || displayText.innerText !== 'x' || displayText.innerText !== '+' || (displayText.innerText !== '-' || displayText.innerText !== '!' || displayText.innerText !== '^'))) { //updating the chainDisplay when the user presses backspace
-        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace to change the previous result
     }
 });
 
@@ -290,8 +286,8 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[0] = percentage;
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = displayText.innerText + '%';
-        } else {
-            displayValue[0] = percentage(Number(displayText.innerText));
+        } else if (displayValue[0]) {
+            displayValue[2] = percentage(Number(displayText.innerText));
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayValue[displayValue.length] = displayValue[3] + '%';
             displayText.innerText = displayText.innerText + '%';
