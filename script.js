@@ -78,22 +78,24 @@ function percentage(x) {
     return (x / 100);
 }
 
+//Check to see whether a number is floating-point or not
 function isFloat(n) {
-    return Number(n) === n && n % 1 !== 0; //check to see whether number is floating point or not
+    return Number(n) === n && n % 1 !== 0; 
 }
 
-function whichNumber(n, r) { //for use with the chainDisplay feature
+//whichNumber returns a formatted number (either Nan, integer, floating-point, integer exponential, or floating-point exponential)
+function whichNumber(n, r) { 
     if (isNaN(n)) {
         return NaN;
     } else if (isFloat(n)) {
         if (r.toString().length > 12) {
-            return n.toExponential(2); 
+            return n.toExponential(4); 
         } else {
             return r;
         }
     } else {
         if (n.toString().length > 12) {
-            return n.toExponential(2);
+            return n.toExponential(4);
         } else {
         return n;
         }
@@ -130,10 +132,20 @@ function operates() {
         } else {
             chainDisplayText.innerHTML = displayValue[1] + displayValue[6] + displayValue[4] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         }
-   
     } else if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
             chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+        } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { 
+            if (String(oldValue[0]) === '1.00') { //special printing conditions for printing squareRoot of 1/.99 to the chainDisplay
+                console.log('hi');
+                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.length - 4) + '√' + '1.00' + ' = ' + '<span id="chainDisplayBold">' + 1 + '</span>';
+            } else if (String(oldValue[0]) === '1') { 
+                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.length - 1) + '√' + 1 + ' = ' + '<span id="chainDisplayBold">' + 1 + '</span>';
+            } else if (String(oldValue[0]) === '0.99') {
+                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.length - 4) + '√' + '0.99' + ' = ' + '<span id="chainDisplayBold">' + 0.99 + '</span>';
+            } else {
+                chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValue[0]))) + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+            }
         } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use with backspace button
             chainDisplayText.innerHTML = chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(oldValue[0]))) + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         } else if (chainDisplayText.innerText.length > 0) {
@@ -142,16 +154,16 @@ function operates() {
             chainDisplayText.innerHTML = displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
         }
     } else { //printing the operation sequence to the chainDisplay 
-                if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
-                    chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-                } else if (chainDisplayText.innerText.length > 0) {
-                    chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-                } else {
-                    chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-                }
+        if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
+            chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+        } else if (chainDisplayText.innerText.length > 0) {
+            chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+        } else {
+            chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+        }
     }
     displayValue = [];
-    oldValue = newValue;
+    oldValue[0] = newValue;
 }
 
 //Populate display when number buttons are clicked
@@ -366,4 +378,3 @@ function preEquate() {
         operates();
     }
 }
-
