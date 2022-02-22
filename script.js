@@ -313,12 +313,15 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = displayText.innerText + '!';
           }
+
     } else if (button.id === 'percent') { //special conditions for using the percent operator
+        let operatorIndex = displayText.innerText.lastIndexOf(oldOperatorSymbol[0]);
+        console.log(displayText.innerText.substring(displayText.innerText.length - 1));
+        
         if (displayText.innerText.substring(0, 1) === '√') {
             displayValue[1] = percentage(displayText.innerText.substring(1, displayText.innerText.length));
             displayText.innerText = displayText.innerText + '%';
         } else if (displayValue[0] && displayValue[0] !== percentage) { //setting the second operand as a percent
-            let operatorIndex = displayText.innerText.lastIndexOf(oldOperatorSymbol[0]);
             displayValue[2] = percentage(Number(displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length)));
             displayValue[displayValue.length] = Number(displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length));
             displayValue[displayValue.length] = displayValue[3] + '%';
@@ -328,6 +331,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length));
             displayText.innerText = displayText.innerText + '%';
         }               
+
     } else if (displayText.innerText.substring(0, 1) === '√') { //special conditions for changing the square root symbol to another operator
         displayValue = [];
         displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + operatorSymbol;
