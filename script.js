@@ -264,20 +264,16 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     } else if (button.id === 'plus') {
         operator = adds;
         operatorSymbol = '+';
-    } else if (button.id === 'factorial') {
-        operator = factorize;
-        operatorSymbol = '!';
     } else if (button.id === 'exponent') {
         operator = power;
         operatorSymbol = '^';
     }
     if (displayText.innerText === '' || displayText.innerText.substring(-1) === operatorSymbol) return;
-    else if (button.id === 'equal') {
-        console.log(displayValue);
+    if (button.id === 'equal') {
         if (displayValue.length === 0) return;
         else preEquate();
     } else if (button.id === 'squareRoot') { //special conditions for changing an operator to the square root symbol
-        if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
+        if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
             displayValue = [];
             displayText.innerText = '√' + displayText.innerText.substring(0, displayText.innerText.length - 1);
             displayValue[0] = squareRoots;
@@ -288,13 +284,30 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = '√' + displayText.innerText;
         }
-    } else if (button.id === 'percent') {
+    } else if (button.id === 'factorial') { //special conditions for using single operand operator
+        if (displayText.innerText.substring(0, 1) === '√') { 
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + '!';
+            displayValue[0] = factorize;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + '!';
+            displayValue[0] = factorize;
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
+        } else {
+            preEquate();
+            displayValue[0] = factorize;
+            displayValue[displayValue.length] = Number(displayText.innerText);
+            displayText.innerText = displayText.innerText + '!';
+          }
+    } else if (button.id === 'percent') { //special conditions for using the percent operator
         if (displayText.innerText.substring(0, 1) === '√') {
             displayValue = [];
             displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + '%';
             displayValue[0] = percentage;
             displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
-        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
+        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
             displayValue = [];
             displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + '%';
             displayValue[0] = percentage;
@@ -312,7 +325,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + operatorSymbol;
         displayValue[0] = operator;
         displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
-    } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '%' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
+    } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
         displayValue = [];
         displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + operatorSymbol;
         displayValue[0] = operator;
