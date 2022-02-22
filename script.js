@@ -89,13 +89,13 @@ function whichNumber(n, r) {
         return NaN;
     } else if (isFloat(n)) {
         if (r.toString().length > 12) {
-            return n.toExponential(4); 
+            return n.toExponential(6); 
         } else {
             return r;
         }
     } else {
         if (n.toString().length > 12) {
-            return n.toExponential(4);
+            return n.toExponential(6);
         } else {
         return n;
         }
