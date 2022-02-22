@@ -37,7 +37,7 @@ let oldValue = [] //empty array for holding old calculated values to manipulate 
 
 let lastDisplayValue = [] //empty array for calling back a number after hitting backspace on an operation key
 
-let oldOperatorSymbol = [] //empty array to store old operation symbols
+let oldOperatorSymbol = [] //empty array to store old operation symbols for printing to the chaindDisplay
 
 //Basic math operator functions
 function adds(a, b) {
@@ -82,7 +82,7 @@ function isFloat(n) {
     return Number(n) === n && n % 1 !== 0; //check to see whether number is floating point or not
 }
 
-//Operate function
+//Operate function - prints newValue to the display as well as the operation chain to the chainDisplay
 function operates() {
     let newValue = displayValue[0](displayValue[1], displayValue[2]);
     let roundedValue = newValue.toFixed(2);
@@ -200,13 +200,11 @@ function operates() {
 }
 
 //Populate display when number buttons are clicked
-clear.addEventListener('click', () => clearText());
-
-function clearText() {
+clear.addEventListener('click', () => {
     displayText.innerText = '';
     chainDisplayText.innerText = '';
     displayValue = [];
-}
+});
 
 backspace.addEventListener('click', () => {
     let lastIndexDisplay = displayText.innerText.length;
@@ -269,6 +267,25 @@ decimal.addEventListener('click', () => {
     }
 })
 
+plusMinus.addEventListener('click', () => {
+    if (operatorSkip()) return;
+    else if (displayText.innerText.includes('√')) return;
+    displayText.innerText = displayText.innerText * -1;
+    let lastIndexChainDisplay = chainDisplayText.innerText.length;
+    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0) {
+        chainDisplayText.innerHTML = chainDisplayText.innerText + 'x-1 = ' + displayText.innerText;
+    }
+});
+
+//Handling strange or illogical user inputs on the operator buttons
+function operatorSkip() {   
+    if (displayText.innerText === '' && displayValue[1]) return false;
+    if (displayText.innerText === '') return true;
+    else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.includes('√') || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || (displayText.innerText.substring(displayText.innerText.length - 1) === '%' && displayValue[0] === Number)) {
+        return true;
+    }
+}
+
 //Operator populator
 operatorButtons.forEach(button => button.addEventListener('click', () => {
     let operator;
@@ -311,7 +328,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = '√' + displayText.innerText;
         }
-    } else if (button.id === 'factorial') { //special conditions for using factoril operator
+    } else if (button.id === 'factorial') { //special conditions for using factorial operator
         oldOperatorSymbol[0] = '!';
         if (displayText.innerText.substring(0, 1) === '√') { 
             displayValue = [];
@@ -395,22 +412,3 @@ function preEquate() {
     }
 }
 
-//Plus/minus button
-plusMinus.addEventListener('click', () => {
-    if (operatorSkip()) return;
-    else if (displayText.innerText.includes('√')) return;
-    displayText.innerText = displayText.innerText * -1;
-    let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0) {
-        chainDisplayText.innerHTML = chainDisplayText.innerText + 'x-1 = ' + displayText.innerText;
-    }
-});
-
-//Handling strange or illogical user inputs on the operator buttons
-function operatorSkip() {   
-    if (displayText.innerText === '' && displayValue[1]) return false;
-    if (displayText.innerText === '') return true;
-    else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '!' || displayText.innerText.includes('√') || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || (displayText.innerText.substring(displayText.innerText.length - 1) === '%' && displayValue[0] === Number)) {
-        return true;
-    }
-}
