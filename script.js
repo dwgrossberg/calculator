@@ -82,14 +82,41 @@ function isFloat(n) {
     return Number(n) === n && n % 1 !== 0; //check to see whether number is floating point or not
 }
 
+function whichNumber(n, r) { //for use with the chainDisplay feature
+    if (isNaN(n)) {
+        return NaN;
+    } else if (isFloat(n)) {
+        if (r.toString().length > 12) {
+            return n.toExponential(2); 
+        } else {
+            return r;
+        }
+    } else {
+        if (n.toString().length > 12) {
+            return n.toExponential(2);
+        } else {
+        return n;
+        }
+    }
+}
+
 //Operate function - prints newValue to the display as well as the operation chain to the chainDisplay
 function operates() {
-    let newValue = displayValue[0](displayValue[1], displayValue[2]);
-    let roundedValue = newValue.toFixed(2);
+    let value = displayValue[0](displayValue[1], displayValue[2]);
+    let roundedValue = value.toFixed(2);
+    let newValue = whichNumber(value, roundedValue);
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
     console.log('displayValue = ' + displayValue);
     console.log('newValue = ' + newValue);
     console.log('oldValue = ' + oldValue);
+    displayText.innerText = '';
+    if (isNaN(newValue)) {
+        displayText.innerText = 'whoops, try again';
+    } else {
+        displayText.innerText = newValue;
+    } 
+
+
     if (displayValue[0] === percentage) { //special case printing first operand percent operations to the chainDisplay
         if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displa
             chainDisplayText.innerHTML = chainDisplayText.innerText + '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
@@ -176,30 +203,8 @@ function operates() {
             }   
         }
     }
-    console.log(displayValue);
     displayValue = [];
-    displayText.innerText = '';
-    if (isNaN(newValue)) {
-        displayText.innerText = 'whoops, try again';
-    } else if (isFloat(newValue)) {
-        if (roundedValue.toString().length > 12) {
-            displayText.innerText = newValue.toExponential(2); //handling numbers that are too large for the display
-            oldValue[0] = newValue.toExponential(2);
-        } else {
-        displayText.innerText = roundedValue;
-        oldValue[0] = roundedValue;
-        }
-    } else {
-        if (newValue.toString().length > 12) {
-            displayText.innerText = newValue.toExponential(2);
-            oldValue[0] = newValue.toExponential(2);
-        } else {
-        displayText.innerText = newValue;
-        oldValue[0] = newValue;
-        }
-    }
 }
-
 
 //Populate display when number buttons are clicked
 clear.addEventListener('click', () => {
