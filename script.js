@@ -37,7 +37,7 @@ let oldValue = [] //empty array for holding old calculated values to manipulate 
 
 let lastDisplayValue = [] //empty array for calling back a number after hitting backspace on an operation key
 
-let oldOperatorSymbol = [] //empty array to store old operation symbols 
+let oldOperatorSymbol = [] //empty array to store old operation symbols
 
 //Basic math operator functions
 function adds(a, b) {
@@ -139,21 +139,40 @@ function operates() {
         }
     } else {
         if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
-            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
-                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
-            } else if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+            if (roundedValue.toString().length > 12) {
+                if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toExponential(2) + '</span>';
+                } else if (chainDisplayText.innerText.length > 0) {
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toExponential(2) + '</span>';
+                } else {
+                    chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toExponential(2) + '</span>';
+                }
             } else {
-                chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                } else if (chainDisplayText.innerText.length > 0) {
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                } else {
+                    chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
+                }
             }
         } else {
+            if (newValue.toString().length > 12) {
+                if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') {
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toExponential(2) + '</span>';
+                } else if (chainDisplayText.innerText.length > 0) {
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toExponential(2) + '</span>';
+                } else {
+                    chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toExponential(2) + '</span>';
+                }
+        } else {
             if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-            } else if (chainDisplayText.innerText.length > 0) {
-                chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-            } else {
-                chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
-            }
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+                } else if (chainDisplayText.innerText.length > 0) {
+                    chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+                } else {
+                    chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
+                }
         }
     }
     displayValue = [];
@@ -177,6 +196,7 @@ function operates() {
         oldValue[0] = newValue;
         }
     }
+}
 }
 
 //Populate display when number buttons are clicked
@@ -319,7 +339,6 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length));
             displayValue[displayValue.length] = displayValue[3] + '%';
             displayText.innerText = displayText.innerText + '%';
-            //preEquate();
         } else { //setting the first operand as a percent
             displayValue[0] = percentage;
             displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length));
