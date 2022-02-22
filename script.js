@@ -37,6 +37,7 @@ let oldValue = [] //empty array for holding old calculated values to manipulate 
 
 let lastDisplayValue = [] //empty array for calling back a number after hitting backspace on an operation key
 
+let oldOperatorSymbol = [] //empty array to store old operation symbols 
 
 //Basic math operator functions
 function adds(a, b) {
@@ -255,24 +256,30 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'divide') {
         operator = divides;
         operatorSymbol = '÷';
+        oldOperatorSymbol[0] = '÷';
     } else if (button.id === 'multiply') {
         operator = multiplies;
         operatorSymbol = 'x';   
+        oldOperatorSymbol[0] = 'x';
     } else if (button.id === 'minus') {
         operator = subtracts;
         operatorSymbol = '-';
+        oldOperatorSymbol[0] = '-';
     } else if (button.id === 'plus') {
         operator = adds;
         operatorSymbol = '+';
+        oldOperatorSymbol[0] = '+';
     } else if (button.id === 'exponent') {
         operator = power;
         operatorSymbol = '^';
+        oldOperatorSymbol[0] = '^';
     }
     if (displayText.innerText === '' || displayText.innerText.substring(-1) === operatorSymbol) return;
     if (button.id === 'equal') {
         if (displayValue.length === 0) return;
         else preEquate();
     } else if (button.id === 'squareRoot') { //special conditions for changing an operator to the square root symbol
+        oldOperatorSymbol[0] = '√';
         if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
             displayValue = [];
             displayText.innerText = '√' + displayText.innerText.substring(0, displayText.innerText.length - 1);
@@ -284,7 +291,8 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = '√' + displayText.innerText;
         }
-    } else if (button.id === 'factorial') { //special conditions for using single operand operator
+    } else if (button.id === 'factorial') { //special conditions for using factoril operator
+        oldOperatorSymbol[0] = '!';
         if (displayText.innerText.substring(0, 1) === '√') { 
             displayValue = [];
             displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + '!';
@@ -303,23 +311,20 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
           }
     } else if (button.id === 'percent') { //special conditions for using the percent operator
         if (displayText.innerText.substring(0, 1) === '√') {
-            displayValue = [];
-            displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + '%';
+            displayValue[1] = percentage(displayText.innerText.substring(1, displayText.innerText.length));
+            displayText.innerText = displayText.innerText + '%';
+        } else if (displayValue[0] && displayValue[0] !== percentage) { //setting the second operand as a percent
+            let operatorIndex = displayText.innerText.lastIndexOf(oldOperatorSymbol[0]);
+            displayValue[2] = percentage(Number(displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length)));
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length));
+            displayValue[displayValue.length] = displayValue[3] + '%';
+            displayText.innerText = displayText.innerText + '%';
+            //preEquate();
+        } else { //setting the first operand as a percent
             displayValue[0] = percentage;
-            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
-        } else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
-            displayValue = [];
-            displayText.innerText = displayText.innerText.substring(0, displayText.innerText.length - 1) + '%';
-            displayValue[0] = percentage;
-            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
-        } else {
-            if (displayValue[0]) preEquate();
-            else {
-                displayValue[0] = percentage;
-                displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length - 1));
-                displayText.innerText = displayText.innerText + '%';
-            }               
-        }
+            displayValue[displayValue.length] = Number(displayText.innerText.substring(0, displayText.innerText.length));
+            displayText.innerText = displayText.innerText + '%';
+        }               
     } else if (displayText.innerText.substring(0, 1) === '√') { //special conditions for changing the square root symbol to another operator
         displayValue = [];
         displayText.innerText = displayText.innerText.substring(1, displayText.innerText.length) + operatorSymbol;
@@ -366,11 +371,6 @@ function preEquate() {
         } else if (displayValue[0] === squareRoots) {
             displayValue[displayValue.length] = '√' + displayValue[1];
             displayValue[displayValue.length] = '√'; //special case for displaying single operand
-        } else { //targets percentage when using the second operand as a percentage
-            displayValue[2] = percentage(Number(displayText.innerText));
-            displayValue[displayValue.length] = Number(displayText.innerText);
-            displayValue[displayValue.length] = displayValue[3] + '%';
-            displayText.innerText = displayText.innerText + '%';
         }
         operates();
     }
