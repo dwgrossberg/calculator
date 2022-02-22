@@ -116,7 +116,6 @@ function operates() {
         }
     } else if (displayValue[0] === factorize || displayValue[0] === squareRoots) { //printing operations with only one operand to the chainDisplay
         if (isFloat(newValue)) {
-            console.log(chainDisplayText.innerText.substring(0, chainDisplayText.innerText.indexOf(String(newValue.toFixed(2)))))
             if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displayValue
                 chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toFixed(2) + '</span>';
             } else if (chainDisplayText.innerText.length > 0 && displayValue[0] === squareRoots) { //special printing conditions for squareRoot operations while the chainDisplay is in use with backspace button
@@ -137,6 +136,7 @@ function operates() {
                 chainDisplayText.innerHTML = displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
             }
         }
+        console.log(displayValue);
     } else {
         if (isFloat(newValue)) { //printing the operation sequence to the chainDisplay 
             if (roundedValue.toString().length > 12) {
@@ -165,16 +165,18 @@ function operates() {
                 } else {
                     chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue.toExponential(2) + '</span>';
                 }
-        } else {
-            if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') {
+            } else {
+                if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') {
                     chainDisplayText.innerHTML = chainDisplayText.innerText + ' ' + displayValue[1]+ displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
                 } else if (chainDisplayText.innerText.length > 0) {
                     chainDisplayText.innerHTML = chainDisplayText.innerText + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
                 } else {
                     chainDisplayText.innerHTML = displayValue[1] + displayValue[3] + displayValue[2] + ' = ' + '<span id="chainDisplayBold">' + newValue + '</span>';
                 }
+            }   
         }
     }
+    console.log(displayValue);
     displayValue = [];
     displayText.innerText = '';
     if (isNaN(newValue)) {
@@ -197,7 +199,7 @@ function operates() {
         }
     }
 }
-}
+
 
 //Populate display when number buttons are clicked
 clear.addEventListener('click', () => {
