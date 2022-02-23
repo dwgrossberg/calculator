@@ -164,6 +164,10 @@ clear.addEventListener('click', () => {
     displayText.innerText = '';
     chainDisplayText.innerText = '';
     displayValue = [];
+    oldValue = [];
+    lastDisplayValue = [];
+    operatorSymbol = [];
+    oldOperatorSymbol = [];
 });
 
 backspace.addEventListener('click', () => {
@@ -230,19 +234,21 @@ decimal.addEventListener('click', () => {
 plusMinus.addEventListener('click', () => {
     if (operatorSkip()) return;
     else if (displayText.innerText.includes('√')) return;
-    let operatorIndex = displayText.innerText.indexOf(operatorSymbol[0]);
-    console.log(operatorIndex);
-    if (displayText.innerText.includes(operatorSymbol[0])) {
+    if (operatorSymbol[0] === '-' && displayText.innerText.includes(operatorSymbol[0])) {
+        let operatorIndex = displayText.innerText.indexOf(operatorSymbol[0]);
         let secondOperand = displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length);
         displayText.innerText = displayText.innerText.substring(0, operatorIndex + 1) + (secondOperand * -1);
-        console.log(displayText.innerText.substring(0, operatorIndex + 1) + (secondOperand * -1));
+    } else if (displayText.innerText.includes(operatorSymbol[0])) {
+        let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);
+        let secondOperand = displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length);
+        displayText.innerText = displayText.innerText.substring(0, operatorIndex + 1) + (secondOperand * -1);
     } else {
         displayText.innerText = displayText.innerText * -1;
     }
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0) {
-        chainDisplayText.innerHTML = chainDisplayText.innerText + 'x-1 = ' + displayText.innerText;
-    }
+    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0 && !displayText.innerText.includes(oldOperatorSymbol[0])) {
+    chainDisplayText.innerHTML = chainDisplayText.innerText + '*-1 = ' + displayText.innerText;
+    }       
 });
 
 //Handling strange or illogical user inputs on the operator buttons
@@ -283,6 +289,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'equal') {
         if (displayValue.length === 0) return;
         else preEquate();
+        operatorSymbol = [];
     } else if (button.id === 'squareRoot') { //special conditions for changing an operator to the square root symbol
         oldOperatorSymbol[0] = '√';
         if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^' || displayText.innerText.substring(displayText.innerText.length - 1) === '!') {
@@ -362,9 +369,15 @@ function preEquate() {
             displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
             displayValue[displayValue.length] = 'x';
         } else if (displayValue[0] === subtracts) {
-            let operator = displayText.innerText.lastIndexOf('-');
-            displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
-            displayValue[displayValue.length] = '-';
+            if (displayText.innerText.substring(0, 1) === '-') {
+                let operator = displayText.innerText.lastIndexOf('-');
+                displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
+                displayValue[displayValue.length] = '-';
+            } else {
+                operator = displayText.innerText.indexOf('-');
+                displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
+                displayValue[displayValue.length] = '-';
+            }
         } else if (displayValue[0] === adds) {
             let operator = displayText.innerText.lastIndexOf('+');
             displayValue[displayValue.length] = Number(displayText.innerText.substring(operator + 1, displayText.innerText.length));
