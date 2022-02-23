@@ -234,7 +234,12 @@ decimal.addEventListener('click', () => {
 plusMinus.addEventListener('click', () => {
     if (operatorSkip()) return;
     else if (displayText.innerText.includes('√')) return;
-    if (operatorSymbol[0] === '-' && displayText.innerText.includes(operatorSymbol[0])) {
+    if (operatorSymbol[0] === '-' && displayText.innerText.includes(operatorSymbol[0]) && displayText.innerText.substring(0, 1) === '-') {
+        let operatorIndex = displayText.innerText.indexOf(operatorSymbol[0], 1);
+        let secondOperand = displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length);
+        console.log(secondOperand);
+        displayText.innerText = displayText.innerText.substring(0, operatorIndex + 1) + (secondOperand * -1);
+    } else if (operatorSymbol[0] === '-' && displayText.innerText.includes(operatorSymbol[0])) {
         let operatorIndex = displayText.innerText.indexOf(operatorSymbol[0]);
         let secondOperand = displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length);
         displayText.innerText = displayText.innerText.substring(0, operatorIndex + 1) + (secondOperand * -1);
@@ -246,7 +251,7 @@ plusMinus.addEventListener('click', () => {
         displayText.innerText = displayText.innerText * -1;
     }
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0 && !displayText.innerText.includes(oldOperatorSymbol[0])) {
+    if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0 && !operatorSymbol[0]) {
     chainDisplayText.innerHTML = chainDisplayText.innerText + '*-1 = ' + displayText.innerText;
     }       
 });
