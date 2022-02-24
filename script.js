@@ -293,7 +293,9 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     if (displayText.innerText === '' || displayText.innerText.substring(-1) === operatorSymbol[0]) return;
     if (button.id === 'equal') {
         if (displayValue.length === 0) return;
-        else preEquate();
+        else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^') {
+            return;
+        } else preEquate();
         operatorSymbol = [];
     } else if (button.id === 'squareRoot') { //special conditions for changing an operator to the square root symbol
         oldOperatorSymbol[0] = '√';
