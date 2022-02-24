@@ -52,6 +52,55 @@ body {
     background-color: #d7c9ac;
 }
 
+.solar1:hover {
+    background-color: #d1c09f;
+}
+
+.solar2:hover {
+    background-color: #cab892;
+}
+
+.solar3:hover {
+    background-color: #c4af84;
+}
+
+.solar4:hover {
+    background-color: #bda777;
+}
+
+.solar5:hover {
+    background-color: #b79e6a;
+}
+
+.solar6:hover {
+    background-color: #b1955d;
+}
+
+.solar7:hover {
+    background-color: #a88c51;
+}
+
+.solar8:hover {
+    background-color: #9b814b;
+}
+
+.solar9:hover {
+    background-color: #8e7644;
+}
+
+.solar10:hover {
+    background-color: #816b3e;
+}
+
+.solar11:hover {
+    background-color: #746038;
+}
+
+.solar12:hover {
+    background-color: #665531;
+}
+
+
 .chainDisplay {
     display: flex;
     justify-content: flex-end;

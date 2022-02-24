@@ -190,16 +190,30 @@ backspace.addEventListener('click', () => {
     }
 });
 
-numberButtons.forEach(button => button.addEventListener('click', () => {
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '^') {
-        displayText.innerText = '';
-    } else if (displayText.innerText.includes('!') || displayText.innerText.includes('%')) {
-        return; //special case so as not to print extra numbers after factorial symbol
-    } else if (displayText.innerText.includes('√')) return;
-    if (displayText.innerText.length < 12) {
-        displayText.innerText = displayText.innerText + button.innerText;
+numberButtons.forEach(button => button.addEventListener('click', insertNumber));
+
+
+window.addEventListener('keydown', insertNumber);
+
+function insertNumber(e) {
+    if (e.type === 'keydown') {
+        if ((e.which >= 48 && e.which <= 57) || (e.which >= 96 && e.which <= 105)) {
+            if (displayText.innerText.includes('!') || displayText.innerText.includes('%')) {
+                return; //special case so as not to print extra numbers after factorial symbol
+            } else if (displayText.innerText.includes('√')) return;
+            if (displayText.innerText.length < 12) {
+                displayText.innerText = displayText.innerText + e.key;
+            }
+        }
+    } else if (e.type === 'click') {
+        if (displayText.innerText.includes('!') || displayText.innerText.includes('%')) {
+            return; //special case so as not to print extra numbers after factorial symbol
+        } else if (displayText.innerText.includes('√')) return;
+        if (displayText.innerText.length < 12) {
+            displayText.innerText = displayText.innerText + e.target.innerText;
+        }
     }
-}));
+}
 
 decimal.addEventListener('click', () => {
     let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);
@@ -218,6 +232,26 @@ decimal.addEventListener('click', () => {
         displayText.innerText = 0 + decimal.innerText;
     }
 })
+
+//window.addEventListener('keydown', addDecimal);
+
+function addDecimal(e) {
+    let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);   
+    if (displayText.innerText.includes(operatorSymbol[0])) {
+        if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length).includes('.')) {
+            return;
+        } else if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length) > 0) {
+            displayText.innerText = displayText.innerText + e.key;
+        } else {
+            displayText.innerText = displayText.innerText + 0 + e.key;
+        }
+    } else if (displayText.innerText.includes('.')) return;
+    else if (displayText.innerText.length > 0) {
+        displayText.innerText = displayText.innerText + e.key;
+    } else {
+        displayText.innerText = 0 + e.key;
+    }
+}
 
 plusMinus.addEventListener('click', () => {
     if (operatorSkip()) return;
