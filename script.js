@@ -162,99 +162,105 @@ function operates() {
 }
 
 //Populate display when number buttons are clicked
-clear.addEventListener('click', () => {
+clear.addEventListener('click', clearAll);
+
+window.addEventListener('keydown', clearAll);
+
+function clearAll(e) {
+    if (e.type === 'keydown' && e.key !== 'Escape') return; 
     displayText.innerText = '';
     chainDisplayText.innerText = '';
     displayValue = [];
     oldValue = [];
     operatorSymbol = [];
     oldOperatorSymbol = [];
-});
+    allValues = [];
+}
 
-backspace.addEventListener('click', () => {
-    let lastIndexDisplay = displayText.innerText.length;
-    let lastIndexChainDisplay = chainDisplayText.innerText.length;
-    console.log(displayText.innerText.substring(displayText.innerText.length -1));
-    if (displayText.innerText === '') return;
-    if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && (displayText.innerText !== '÷' || displayText.innerText !== 'x' || displayText.innerText !== '+' || (displayText.innerText !== '-' || displayText.innerText !== '!' || displayText.innerText !== '^'))) { //updating the chainDisplay when the user presses backspace
-        chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace to change the previous result
+backspace.addEventListener('click', erase);
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace') {
+        erase();
     }
-    if (displayText.innerText.substring(displayText.innerText.length -1) === '÷' || displayText.innerText.substring(displayText.innerText.length -1) === 'x' || displayText.innerText.substring(displayText.innerText.length -1) === '+' || displayText.innerText.substring(displayText.innerText.length -1) === '-' || displayText.innerText.substring(displayText.innerText.length -1) === '^' || displayText.innerText.substring(displayText.innerText.length -1) === '!' || displayText.innerText.substring(displayText.innerText.length -1) === '%') {
-        displayValue = [];
-        displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
-    } else if (displayText.innerText.includes('√')) {
-        displayValue = [];
-        displayText.innerText = displayText.innerText.substring(1, lastIndexDisplay);
-    } else {    
-        displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
-    }
-});
+})
+
+function erase() {
+        let lastIndexDisplay = displayText.innerText.length;
+        let lastIndexChainDisplay = chainDisplayText.innerText.length;
+        console.log(displayText.innerText.substring(displayText.innerText.length -1));
+        if (displayText.innerText === '') return;
+        if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && (displayText.innerText !== '÷' || displayText.innerText !== 'x' || displayText.innerText !== '+' || (displayText.innerText !== '-' || displayText.innerText !== '!' || displayText.innerText !== '^'))) { //updating the chainDisplay when the user presses backspace
+            chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace to change the previous result
+        }
+        if (displayText.innerText.substring(displayText.innerText.length -1) === '÷' || displayText.innerText.substring(displayText.innerText.length -1) === 'x' || displayText.innerText.substring(displayText.innerText.length -1) === '+' || displayText.innerText.substring(displayText.innerText.length -1) === '-' || displayText.innerText.substring(displayText.innerText.length -1) === '^' || displayText.innerText.substring(displayText.innerText.length -1) === '!' || displayText.innerText.substring(displayText.innerText.length -1) === '%') {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
+        } else if (displayText.innerText.includes('√')) {
+            displayValue = [];
+            displayText.innerText = displayText.innerText.substring(1, lastIndexDisplay);
+        } else {    
+            displayText.innerText = displayText.innerText.substring(0, lastIndexDisplay - 1);
+        }
+}
 
 numberButtons.forEach(button => button.addEventListener('click', insertNumber));
-
 
 window.addEventListener('keydown', insertNumber);
 
 function insertNumber(e) {
+    let num;
+    if (e.type === 'keydown' && !(e.key >= 0 && e.key <= 9)) return; 
     if (e.type === 'keydown') {
-        if ((e.which >= 48 && e.which <= 57) || (e.which >= 96 && e.which <= 105)) {
-            if (displayText.innerText.includes('!') || displayText.innerText.includes('%')) {
-                return; //special case so as not to print extra numbers after factorial symbol
-            } else if (displayText.innerText.includes('√')) return;
-            if (displayText.innerText.length < 12) {
-                displayText.innerText = displayText.innerText + e.key;
-            }
-        }
+        num = e.key;
     } else if (e.type === 'click') {
-        if (displayText.innerText.includes('!') || displayText.innerText.includes('%')) {
-            return; //special case so as not to print extra numbers after factorial symbol
-        } else if (displayText.innerText.includes('√')) return;
-        if (displayText.innerText.length < 12) {
-            displayText.innerText = displayText.innerText + e.target.innerText;
-        }
+        num = e.target.innerText;
+    }
+    if (displayText.innerText.includes('!') || displayText.innerText.includes('%')) {
+        return; //special case so as not to print extra numbers after factorial symbol
+    } else if (displayText.innerText.includes('√')) return;
+    if (displayText.innerText.length < 12) {
+        displayText.innerText = displayText.innerText + num;
     }
 }
 
-decimal.addEventListener('click', () => {
-    let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);
-    if (displayText.innerText.includes(operatorSymbol[0])) {
-        if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length).includes('.')) {
-            return;
-        } else if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length) > 0) {
-            displayText.innerText = displayText.innerText + decimal.innerText;
-        } else {
-            displayText.innerText = displayText.innerText + 0 + decimal.innerText;
-        }
-    } else if (displayText.innerText.includes('.')) return;
-    else if (displayText.innerText.length > 0) {
-        displayText.innerText = displayText.innerText + decimal.innerText;
-    } else {
-        displayText.innerText = 0 + decimal.innerText;
-    }
-})
 
-//window.addEventListener('keydown', addDecimal);
+decimal.addEventListener('click', addDecimal);
+
+window.addEventListener('keydown', addDecimal);
 
 function addDecimal(e) {
+    let dec;
+    if (e.type === 'keydown' && e.key !== '.') return; 
+    if (e.type === 'keydown') {
+        dec = e.key;
+    } else if (e.type === 'click') {
+        dec = e.target.innerText;
+    }
     let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);   
     if (displayText.innerText.includes(operatorSymbol[0])) {
         if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length).includes('.')) {
             return;
         } else if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length) > 0) {
-            displayText.innerText = displayText.innerText + e.key;
+            displayText.innerText = displayText.innerText + dec;
         } else {
-            displayText.innerText = displayText.innerText + 0 + e.key;
+            displayText.innerText = displayText.innerText + 0 + dec;
         }
     } else if (displayText.innerText.includes('.')) return;
     else if (displayText.innerText.length > 0) {
-        displayText.innerText = displayText.innerText + e.key;
+        displayText.innerText = displayText.innerText + dec;
     } else {
-        displayText.innerText = 0 + e.key;
+        displayText.innerText = 0 + dec;
     }
 }
 
-plusMinus.addEventListener('click', () => {
+plusMinus.addEventListener('click', positiveNegative);
+
+window.addEventListener('keydown', positiveNegative);
+
+function positiveNegative(e) {
     if (operatorSkip()) return;
+    if (e.type === 'keydown' && e.key !== '`') return;
     else if (displayText.innerText.includes('√')) return;
     if (operatorSymbol[0] === '-' && displayText.innerText.includes(operatorSymbol[0]) && displayText.innerText.substring(0, 1) === '-') {
         let operatorIndex = displayText.innerText.indexOf(operatorSymbol[0], 1);
@@ -277,7 +283,7 @@ plusMinus.addEventListener('click', () => {
         chainDisplayText.innerHTML = chainDisplayText.innerText + '*-1 = ' + '<span id="chainDisplayBold">' + displayText.innerText + '</span>';
         
     }       
-});
+}
 
 //Handling strange or illogical user inputs on the operator buttons
 function operatorSkip() {   
