@@ -220,11 +220,17 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 decimal.addEventListener('click', () => {
-    if (displayText.innerText.includes('.')) return; //only allow one decimal for each display value
-    if (displayText.innerText === '÷' || displayText.innerText === 'x' || displayText.innerText === '+' || displayText.innerText === '-' || displayText.innerText === '^') {
-        displayText.innerText = '';
-    }
-    if (displayText.innerText.length > 0) {
+    let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);
+    if (displayText.innerText.includes(operatorSymbol[0])) {
+        if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length).includes('.')) {
+            return;
+        } else if (displayText.innerText.substring(operatorIndex + 1, displayText.innerText.length) > 0) {
+            displayText.innerText = displayText.innerText + decimal.innerText;
+        } else {
+            displayText.innerText = displayText.innerText + 0 + decimal.innerText;
+        }
+    } else if (displayText.innerText.includes('.')) return;
+    else if (displayText.innerText.length > 0) {
         displayText.innerText = displayText.innerText + decimal.innerText;
     } else {
         displayText.innerText = 0 + decimal.innerText;
@@ -269,6 +275,7 @@ function operatorSkip() {
 operatorButtons.forEach(button => button.addEventListener('click', () => {
     let operator;
     if (button.id === 'plusMinus') return;
+    if (displayText.innerText === 'whoops, try again') return;
     if (button.id === 'divide') {
         operator = divides;
         operatorSymbol = '÷';
