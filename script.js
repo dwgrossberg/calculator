@@ -240,7 +240,8 @@ plusMinus.addEventListener('click', () => {
     }
     let lastIndexChainDisplay = chainDisplayText.innerText.length;
     if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && chainDisplayText.innerText.length > 0 && !operatorSymbol[0]) {
-    chainDisplayText.innerHTML = chainDisplayText.innerText + '*-1 = ' + displayText.innerText;
+        chainDisplayText.innerHTML = chainDisplayText.innerText + '*-1 = ' + '<span id="chainDisplayBold">' + displayText.innerText + '</span>';
+        
     }       
 });
 
