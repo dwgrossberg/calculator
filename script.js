@@ -295,39 +295,50 @@ function operatorSkip() {
 }
 
 //Operator populator
-operatorButtons.forEach(button => button.addEventListener('click', () => {
+operatorButtons.forEach(button => button.addEventListener('click', inputOperator));
+
+window.addEventListener('keydown', inputOperator);
+
+function inputOperator(e) {
+    let operation;
     let operator;
-    if (button.id === 'plusMinus') return;
+    if (e.type === 'keydown' && (e.key !== '/' || e.key !== 'x' || e.key !== '-' || e.key !== '=' || e.key !== 'Enter' || (e.key !== '1' && !e.shitKey) || (e.key !== '5' && !e.shitKey) || (e.key !== '6' && !e.shitKey) || (e.key !== '9' && !e.shitKey))) return; 
+    if (e.type === 'keydown') {
+        operation = e.key;
+    } else if (e.type === 'click') {
+        operation = e.target.id;
+    }
+    if (operation === 'plusMinus') return;
     if (displayText.innerText === 'whoops, try again') return;
-    if (button.id === 'divide') {
+    if (operation === 'divide' || operation === '/') {
         operator = divides;
         operatorSymbol = '÷';
         oldOperatorSymbol[0] = '÷';
-    } else if (button.id === 'multiply') {
+    } else if (operation === 'multiply' || operation === 'x') {
         operator = multiplies;
         operatorSymbol = 'x';   
         oldOperatorSymbol[0] = 'x';
-    } else if (button.id === 'minus') {
+    } else if (operation === 'minus' || operation === '-') {
         operator = subtracts;
         operatorSymbol = '-';
         oldOperatorSymbol[0] = '-';
-    } else if (button.id === 'plus') {
+    } else if (operation === 'plus' || operation === '=') {
         operator = adds;
         operatorSymbol = '+';
         oldOperatorSymbol[0] = '+';
-    } else if (button.id === 'exponent') {
+    } else if (operation === 'exponent' || (operation === 6 && e.shiftKey)) {
         operator = power;
         operatorSymbol = '^';
         oldOperatorSymbol[0] = '^';
     }
     if (displayText.innerText === '' || displayText.innerText.substring(-1) === operatorSymbol[0]) return;
-    if (button.id === 'equal') {
+    if (operation === 'equal' || operation === 'Enter') {
         if (displayValue.length === 0) return;
         else if (displayText.innerText.substring(displayText.innerText.length - 1) === '÷' || displayText.innerText.substring(displayText.innerText.length - 1) === 'x' || displayText.innerText.substring(displayText.innerText.length - 1) === '-' || displayText.innerText.substring(displayText.innerText.length - 1) === '+' || displayText.innerText.substring(displayText.innerText.length - 1) === '^') {
             return;
         } else preEquate();
         operatorSymbol = [];
-    } else if (button.id === 'squareRoot') { //special conditions for changing an operator to the square root symbol
+    } else if (operation === 'squareRoot' || (operation === '9' && e.shitKey)) { //special conditions for changing an operator to the square root symbol
         if (displayText.innerText === '√whoops, try again') {
             displayText.innerText = 'whoops, try again';
             return;
@@ -344,7 +355,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = '√' + displayText.innerText;
         }
-    } else if (button.id === 'factorial') { //special conditions for using factorial operator
+    } else if (operation === 'factorial' || (operation === '1' && e.shiftKey)) { //special conditions for using factorial operator
         oldOperatorSymbol[0] = '!';
         if (displayText.innerText.substring(0, 1) === '√') { 
             displayValue = [];
@@ -362,7 +373,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = displayText.innerText + '!';
           }
-    } else if (button.id === 'percent') { //special conditions for using the percent operator
+    } else if (operation === 'percent' || (operation === '5' && e.shiftKey)) { //special conditions for using the percent operator
         let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);
         console.log(displayText.innerText.substring(displayText.innerText.length - 1));
         console.log(operatorSymbol[0]);
@@ -397,8 +408,8 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
         displayValue[displayValue.length] = Number(displayText.innerText);
         displayText.innerText = displayText.innerText + operatorSymbol[0];
     }
-}));
-     
+}
+
 function preEquate() {
     if (displayValue[0]) {
         if (displayValue[0] === divides) { //saving the operation symbol to print in the chainDisplay
