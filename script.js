@@ -55,6 +55,7 @@ function multiplies(a, b) {
 }
 
 function divides(a, b) {
+    if (b === 0) return NaN;
     return a / b;
 }
 
@@ -188,7 +189,6 @@ window.addEventListener('keydown', (e) => {
 function erase() {
         let lastIndexDisplay = displayText.innerText.length;
         let lastIndexChainDisplay = chainDisplayText.innerText.length;
-        console.log(displayText.innerText.substring(displayText.innerText.length -1));
         if (displayText.innerText === '') return;
         if (chainDisplayText.innerText.length > 0 && displayValue.length === 0 && chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) !== '//' && (displayText.innerText !== '÷' || displayText.innerText !== 'x' || displayText.innerText !== '+' || (displayText.innerText !== '-' || displayText.innerText !== '!' || displayText.innerText !== '^'))) { //updating the chainDisplay when the user presses backspace
             chainDisplayText.innerHTML = chainDisplayText.innerText +  ' //';  //indicates a new operation sequence after user hits backspace to change the previous result
@@ -297,7 +297,7 @@ function operatorSkip() {
 //Operator populator
 operatorButtons.forEach(button => button.addEventListener('click', inputOperator));
 
-window.addEventListener('keydown', inputOperator);
+window.addEventListener('keydown', inputOperator(e));
 
 function inputOperator(e) {
     let operation;
@@ -308,6 +308,7 @@ function inputOperator(e) {
     } else if (e.type === 'click') {
         operation = e.target.id;
     }
+    console.log(operation);
     if (operation === 'plusMinus') return;
     if (displayText.innerText === 'whoops, try again') return;
     if (operation === 'divide' || operation === '/') {
