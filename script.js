@@ -297,17 +297,19 @@ function operatorSkip() {
 //Operator populator
 operatorButtons.forEach(button => button.addEventListener('click', inputOperator));
 
-window.addEventListener('keydown', inputOperator(e));
-
+window.addEventListener('keydown', inputOperator);    
+    
 function inputOperator(e) {
+    console.log(e.type, e.key);
     let operation;
     let operator;
-    if (e.type === 'keydown' && (e.key !== '/' || e.key !== 'x' || e.key !== '-' || e.key !== '=' || e.key !== 'Enter' || (e.key !== '1' && !e.shitKey) || (e.key !== '5' && !e.shitKey) || (e.key !== '6' && !e.shitKey) || (e.key !== '9' && !e.shitKey))) return; 
-    if (e.type === 'keydown') {
+    if (e.type === 'keydown' && !(e.key === '/' || e.key === 'x' || e.key === '-' || e.key === '=' || e.key === 'Enter' || (e.key === '1' || e.key === '5' || e.key === '6' || e.key === '9' && e.key === 'Shift'))) {
+        return;
+    } else if (e.type === 'keydown') {
         operation = e.key;
     } else if (e.type === 'click') {
         operation = e.target.id;
-    }
+    } 
     console.log(operation);
     if (operation === 'plusMinus') return;
     if (displayText.innerText === 'whoops, try again') return;
