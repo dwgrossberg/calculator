@@ -40,11 +40,11 @@ body {
     text-shadow: .5px .5px #352a5a;
 }
 
-.solar {
+.solarDivs {
     display: flex;
 }
 
-.solar div{
+.solarDivs div{
     width: 20px;
     height: 30px;
     border: dotted .5px white;
@@ -52,54 +52,68 @@ body {
     background-color: #d7c9ac;
 }
 
-.solar1:hover {
+.solarDivs:hover .solar1 {
     background-color: #d1c09f;
 }
 
-.solar2:hover {
+.solar1:hover,
+.solar2:hover,
+.solar3:hover,
+.solar4:hover,
+.solar5:hover,
+.solar6:hover,
+.solar7:hover,
+.solar8:hover,
+.solar9:hover,
+.solar10:hover,
+.solar11:hover,
+.solar12:hover {
+    box-shadow: inset .5px .5px 5px #d6c2ae;;
+}
+
+.solarDivs:hover .solar2{
     background-color: #cab892;
 }
 
-.solar3:hover {
+.solarDivs:hover .solar3 {
     background-color: #c4af84;
 }
 
-.solar4:hover {
+.solarDivs:hover .solar4 {
     background-color: #bda777;
 }
 
-.solar5:hover {
+.solarDivs:hover .solar5 {
     background-color: #b79e6a;
 }
 
-.solar6:hover {
+.solarDivs:hover .solar6 {
     background-color: #b1955d;
 }
 
-.solar7:hover {
+.solarDivs:hover .solar7 {
     background-color: #a88c51;
 }
 
-.solar8:hover {
+.solarDivs:hover .solar8 {
     background-color: #9b814b;
 }
 
-.solar9:hover {
+.solarDivs:hover .solar9 {
     background-color: #8e7644;
 }
 
-.solar10:hover {
+.solarDivs:hover .solar10 {
     background-color: #816b3e;
 }
 
-.solar11:hover {
+.solarDivs:hover .solar11 {
     background-color: #746038;
 }
 
-.solar12:hover {
+.solarDivs:hover .solar12 {
     background-color: #665531;
 }
-
 
 .chainDisplay {
     display: flex;

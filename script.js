@@ -2,6 +2,7 @@
 const display = document.getElementsByClassName('display');
 const displayText = document.getElementById('displayText');
 const chainDisplayText = document.getElementById('chainDisplayText');
+const solar = document.getElementsByClassName('solar');
 const clear = document.getElementById('clear');
 const backspace = document.getElementById('backspace');
 const divide = document.getElementById('divide');
@@ -450,3 +451,4 @@ function preEquate() {
         operates();
     }
 }
+
