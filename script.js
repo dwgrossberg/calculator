@@ -300,17 +300,16 @@ operatorButtons.forEach(button => button.addEventListener('click', inputOperator
 window.addEventListener('keydown', inputOperator);    
     
 function inputOperator(e) {
-    console.log(e.type, e.key);
     let operation;
     let operator;
-    if (e.type === 'keydown' && !(e.key === '/' || e.key === 'x' || e.key === '-' || e.key === '=' || e.key === 'Enter' || (e.key === '1' || e.key === '5' || e.key === '6' || e.key === '9' && e.key === 'Shift'))) {
+    if (e.type === 'keydown' && !(e.key === '/' || e.key === 'x' || e.key === '-' || e.key === '=' || e.key === 'Enter' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === '(')) {
         return;
     } else if (e.type === 'keydown') {
+        console.log(e.key);
         operation = e.key;
     } else if (e.type === 'click') {
         operation = e.target.id;
     } 
-    console.log(operation);
     if (operation === 'plusMinus') return;
     if (displayText.innerText === 'whoops, try again') return;
     if (operation === 'divide' || operation === '/') {
@@ -329,7 +328,7 @@ function inputOperator(e) {
         operator = adds;
         operatorSymbol = '+';
         oldOperatorSymbol[0] = '+';
-    } else if (operation === 'exponent' || (operation === 6 && e.shiftKey)) {
+    } else if (operation === 'exponent' || (e.shiftKey && operation === '^')) {
         operator = power;
         operatorSymbol = '^';
         oldOperatorSymbol[0] = '^';
@@ -341,7 +340,7 @@ function inputOperator(e) {
             return;
         } else preEquate();
         operatorSymbol = [];
-    } else if (operation === 'squareRoot' || (operation === '9' && e.shitKey)) { //special conditions for changing an operator to the square root symbol
+    } else if (operation === 'squareRoot' || (operation === '(' && e.shiftKey)) { //special conditions for changing an operator to the square root symbol
         if (displayText.innerText === '√whoops, try again') {
             displayText.innerText = 'whoops, try again';
             return;
@@ -358,7 +357,7 @@ function inputOperator(e) {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = '√' + displayText.innerText;
         }
-    } else if (operation === 'factorial' || (operation === '1' && e.shiftKey)) { //special conditions for using factorial operator
+    } else if (operation === 'factorial' || (operation === '!' && e.shiftKey)) { //special conditions for using factorial operator
         oldOperatorSymbol[0] = '!';
         if (displayText.innerText.substring(0, 1) === '√') { 
             displayValue = [];
@@ -376,7 +375,7 @@ function inputOperator(e) {
             displayValue[displayValue.length] = Number(displayText.innerText);
             displayText.innerText = displayText.innerText + '!';
           }
-    } else if (operation === 'percent' || (operation === '5' && e.shiftKey)) { //special conditions for using the percent operator
+    } else if (operation === 'percent' || (operation === '%' && e.shiftKey)) { //special conditions for using the percent operator
         let operatorIndex = displayText.innerText.lastIndexOf(operatorSymbol[0]);
         console.log(displayText.innerText.substring(displayText.innerText.length - 1));
         console.log(operatorSymbol[0]);
