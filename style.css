@@ -6,10 +6,36 @@ body {
     font-family: Lato, sans-serif;
 }
 
+.keyboardTop {
+    align-items: center;
+    height: 35px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
 .wrapper {
     display: flex;
     align-items: center;
     gap: 30px;
+}
+
+.keyboardNormal,
+.keyboardSpecial {
+    margin-top: 250px;
+    width: 270px;
+}
+
+.keyboardNormal p,
+.keyboardSpecial p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.keyboardNormal img,
+.keyboardSpecial img {
+    height: 50px;
 }
 
 .calculator {
@@ -18,7 +44,7 @@ body {
     align-items: center;
     height: 615px;
     width: 450px;
-    margin-top: 70px;
+    margin-top: 0px;
     border: solid 1px #352a5a;
     border-radius: 5%;
     background-color: #f7f8fa;

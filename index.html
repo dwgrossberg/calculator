@@ -4,19 +4,22 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lato&family=Lobster+Two&family=Michroma&family=Orbitron&display=swap" rel="stylesheet">     
-        <link rel="icon" type="image/x-icon" href="../../img/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
         <title>Calculator</title>
     </head>
     <body>
+        <div class="keyboardTop">
+            <p>Please use one of the keyboard shortcuts listed below:</p>
+        </div>
         <div class="wrapper">
             <div class="keyboardSpecial">
-                    <p><span id="keyboardSymbol">`</span>&nbsp;&nbsp;(Shift + 0)&nbsp;&nbsp;Plus/Minus</p>
-                    <p><span id="keyboardSymbol">!</span>&nbsp;&nbsp;&nbsp;Factorial</p>
-                    <p><span id="keyboardSymbol">%</span>&nbsp;&nbsp;&nbsp;Factorial</p>                    
-                    <p><span id="keyboardSymbol">^</span>&nbsp;&nbsp;&nbsp;Exponent</p>
-                    <p><span id="keyboardSymbol">)</span>&nbsp;&nbsp;&nbsp;Square Root</p>                </ul>
+                <p><img src="img/backtick.svg">Plus/Minus</p>
+                <p><img src="img/shift.svg"><img src="img/1.svg">Factorial</p>
+                <p><img src="img/shift.svg"><img src="img/5.svg">Percent</p>                    
+                <p><img src="img/shift.svg"><img src="img/6.svg">Exponent</p>
+                <p><img src="img/shift.svg"><img src="img/0.svg">Square Root</p>
             </div>
             <div class="calculator">
                 <div class="container">
@@ -89,13 +92,11 @@
                 </div>
             </div>
             <div class="keyboardNormal">
-                <ul>
-                    <li>/</li>
-                    <li>x</li>
-                    <li>-</li>
-                    <li>=</li>
-                    <li>Enter</li>
-                </ul>
+                <p><span id="keyboardSymbol">/</span>&nbsp;&nbsp;:&nbsp;&nbsp;Divide</p>                </ul>
+                <p><span id="keyboardSymbol">x</span>&nbsp;&nbsp;:&nbsp;&nbsp;Multiply</p>                </ul>
+                <p><span id="keyboardSymbol">-</span>&nbsp;&nbsp;:&nbsp;&nbsp;Subtract</p>                </ul>
+                <p><span id="keyboardSymbol">=</span>&nbsp;&nbsp;:&nbsp;&nbsp;Add</p>                </ul>
+                <p><span id="keyboardSymbol">return</span>&nbsp;&nbsp;:&nbsp;&nbsp;Equals</p>                </ul>
             </div>
         </div>
         <div class="madeBy">
