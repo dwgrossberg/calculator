@@ -303,7 +303,7 @@ window.addEventListener('keydown', inputOperator);
 function inputOperator(e) {
     let operation;
     let operator;
-    if (e.type === 'keydown' && !(e.key === '/' || e.key === 'x' || e.key === '-' || e.key === '=' || e.key === 'Enter' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === '(')) {
+    if (e.type === 'keydown' && !(e.key === '/' || e.key === 'x' || e.key === '-' || e.key === '=' || e.key === 'Enter' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === ')')) {
         return;
     } else if (e.type === 'keydown') {
         console.log(e.key);
@@ -341,7 +341,7 @@ function inputOperator(e) {
             return;
         } else preEquate();
         operatorSymbol = [];
-    } else if (operation === 'squareRoot' || (operation === '(' && e.shiftKey)) { //special conditions for changing an operator to the square root symbol
+    } else if (operation === 'squareRoot' || (operation === ')' && e.shiftKey)) { //special conditions for changing an operator to the square root symbol
         if (displayText.innerText === '√whoops, try again') {
             displayText.innerText = 'whoops, try again';
             return;
@@ -452,3 +452,10 @@ function preEquate() {
     }
 }
 
+//Keyboard control pop-up
+window.addEventListener('keydown', (e) => {
+    if (e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4' || e.key === '5' || e.key === '6' || e.key === '7' || e.key === '8' || e.key === '9' || e.key === '`' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === ')' || e.key === '-' || e.key === '=' || e.key === '/' || e.key === 'x' || e.key === 'Enter' || e.key === 'Escape') {
+        return;
+    }
+
+})

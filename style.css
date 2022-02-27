@@ -6,6 +6,12 @@ body {
     font-family: Lato, sans-serif;
 }
 
+.wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
 .calculator {
     display: flex;
     justify-content: center;

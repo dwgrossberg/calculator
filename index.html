@@ -10,74 +10,92 @@
         <title>Calculator</title>
     </head>
     <body>
-        <div class="calculator">
-            <div class="container">
-                <div class="containerTop">
-                    <div class="dasio">
-                        <p>Dasio</p>
-                        <div class="solarDivs">
-                            <div class="solar1"></div>
-                            <div class="solar2"></div>
-                            <div class="solar3"></div>
-                            <div class="solar4"></div>
-                            <div class="solar5"></div>
-                            <div class="solar6"></div>
-                            <div class="solar7"></div>
-                            <div class="solar8"></div>
-                            <div class="solar9"></div>
-                            <div class="solar10"></div>
-                            <div class="solar11"></div>
-                            <div class="solar12"></div>                
+        <div class="wrapper">
+            <div class="keyboardSpecial">
+                    <p><span id="keyboardSymbol">`</span>&nbsp;&nbsp;(Shift + 0)&nbsp;&nbsp;Plus/Minus</p>
+                    <p><span id="keyboardSymbol">!</span>&nbsp;&nbsp;&nbsp;Factorial</p>
+                    <p><span id="keyboardSymbol">%</span>&nbsp;&nbsp;&nbsp;Factorial</p>                    
+                    <p><span id="keyboardSymbol">^</span>&nbsp;&nbsp;&nbsp;Exponent</p>
+                    <p><span id="keyboardSymbol">)</span>&nbsp;&nbsp;&nbsp;Square Root</p>                </ul>
+            </div>
+            <div class="calculator">
+                <div class="container">
+                    <div class="containerTop">
+                        <div class="dasio">
+                            <p>Dasio</p>
+                            <div class="solarDivs">
+                                <div class="solar1"></div>
+                                <div class="solar2"></div>
+                                <div class="solar3"></div>
+                                <div class="solar4"></div>
+                                <div class="solar5"></div>
+                                <div class="solar6"></div>
+                                <div class="solar7"></div>
+                                <div class="solar8"></div>
+                                <div class="solar9"></div>
+                                <div class="solar10"></div>
+                                <div class="solar11"></div>
+                                <div class="solar12"></div>                
+                            </div>
+                        </div>
+                        <div class="chainDisplay">
+                            <div class="scroll">
+                                <p id="chainDisplayText"></p>
+                            </div>
+                        </div>
+                        <div class="display">
+                            <p id="displayText"></p>
                         </div>
                     </div>
-                    <div class="chainDisplay">
-                        <div class="scroll">
-                            <p id="chainDisplayText"></p>
-                        </div>
+                    <div class="topRow">           
+                        <button type="button" id="factorial">n!</button>
+                        <button type="button" id="percent">%</button>
+                        <button type="button" id="exponent">x<sup>y</sup></button>
+                        <button type="button" id="squareRoot">√</button>
+                        <button type="button" id="divide">÷</button>
                     </div>
-                    <div class="display">
-                        <p id="displayText"></p>
-                    </div>
-                </div>
-                <div class="topRow">           
-                    <button type="button" id="factorial">n!</button>
-                    <button type="button" id="percent">%</button>
-                    <button type="button" id="exponent">x<sup>y</sup></button>
-                    <button type="button" id="squareRoot">√</button>
-                    <button type="button" id="divide">÷</button>
-                </div>
-                <div class="containerBottom">
-                    <div class="column0">
-                        <button type="button" id="plusMinus">+/-</button>
-                        <button type="button" id="clear">AC</button>
-                        <button type="button" id="backspace">⇦</button>
-                        <button type="button" id="zero">0</button>
+                    <div class="containerBottom">
+                        <div class="column0">
+                            <button type="button" id="plusMinus">+/-</button>
+                            <button type="button" id="clear">AC</button>
+                            <button type="button" id="backspace">⇦</button>
+                            <button type="button" id="zero">0</button>
 
-                    </div>
-                    <div class="column1">
-                        <button type="button" id="seven">7</button>
-                        <button type="button" id="four">4</button>
-                        <button type="button" id="one">1</button>
-                        <button type="button" id="doubleZero">00</button>
-                    </div>
-                    <div class="column2">
-                        <button type="button" id="eight">8</button>
-                        <button type="button" id="five">5</button>
-                        <button type="button" id="two">2</button>
-                        <button type="button" id="decimal">.</button>
-                    </div>
-                    <div class="column3">
-                        <button type="button" id="nine">9</button>
-                        <button type="button" id="six">6</button>
-                        <button type="button" id="three">3</button>
-                        <button type="button" id="equal">=</button>
-                    </div>
-                    <div class="column4">
-                        <button type="button" id="multiply">x</button>
-                        <button type="button" id="minus">-</button>
-                        <button type="button" id="plus">+</button>
+                        </div>
+                        <div class="column1">
+                            <button type="button" id="seven">7</button>
+                            <button type="button" id="four">4</button>
+                            <button type="button" id="one">1</button>
+                            <button type="button" id="doubleZero">00</button>
+                        </div>
+                        <div class="column2">
+                            <button type="button" id="eight">8</button>
+                            <button type="button" id="five">5</button>
+                            <button type="button" id="two">2</button>
+                            <button type="button" id="decimal">.</button>
+                        </div>
+                        <div class="column3">
+                            <button type="button" id="nine">9</button>
+                            <button type="button" id="six">6</button>
+                            <button type="button" id="three">3</button>
+                            <button type="button" id="equal">=</button>
+                        </div>
+                        <div class="column4">
+                            <button type="button" id="multiply">x</button>
+                            <button type="button" id="minus">-</button>
+                            <button type="button" id="plus">+</button>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="keyboardNormal">
+                <ul>
+                    <li>/</li>
+                    <li>x</li>
+                    <li>-</li>
+                    <li>=</li>
+                    <li>Enter</li>
+                </ul>
             </div>
         </div>
         <div class="madeBy">
