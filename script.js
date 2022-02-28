@@ -471,7 +471,7 @@ window.addEventListener('keydown', (e) => {
         keyboard[0].classList.remove('keyboardActive');
         keyboard[1].classList.remove('keyboardActive');
     } else {
-        if (e.key === '0' || e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4' || e.key === '5' || e.key === '6' || e.key === '7' || e.key === '8' || e.key === '9' || e.key === '`' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === ')' || e.key === '-' || e.key === '=' || e.key === '/' || e.key === 'x' || e.key === 'Enter' || e.key === 'Escape' || e.key === 'Backspace' || e.key === 'Shift') {
+        if (e.key === '.' || e.key === '0' || e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4' || e.key === '5' || e.key === '6' || e.key === '7' || e.key === '8' || e.key === '9' || e.key === '`' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === ')' || e.key === '-' || e.key === '=' || e.key === '/' || e.key === 'x' || e.key === 'Enter' || e.key === 'Escape' || e.key === 'Backspace' || e.key === 'Shift') {
             return;
         } else {
             document.body.classList.add('keyboard');
