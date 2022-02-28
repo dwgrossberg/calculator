@@ -1,8 +1,10 @@
 //Variables
+const body = document.getElementsByTagName('body');
 const display = document.getElementsByClassName('display');
 const displayText = document.getElementById('displayText');
 const chainDisplayText = document.getElementById('chainDisplayText');
 const solar = document.getElementsByClassName('solar');
+const keyboard = document.getElementsByClassName('keyboard');
 const clear = document.getElementById('clear');
 const backspace = document.getElementById('backspace');
 const divide = document.getElementById('divide');
@@ -456,6 +458,12 @@ function preEquate() {
 window.addEventListener('keydown', (e) => {
     if (e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4' || e.key === '5' || e.key === '6' || e.key === '7' || e.key === '8' || e.key === '9' || e.key === '`' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === ')' || e.key === '-' || e.key === '=' || e.key === '/' || e.key === 'x' || e.key === 'Enter' || e.key === 'Escape') {
         return;
-    }
+    } else {
+        document.body.classList.add('keyboard');
+        keyboard[2].removeAttribute('id');
+        keyboard[1].classList.add('keyboardActive');
+        keyboard[2].classList.add('keyboardActive');
 
-})
+    }
+});
+

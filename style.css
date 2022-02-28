@@ -9,10 +9,14 @@ body {
     overflow: hidden;
 }
 
+body.keyboard{
+    background-color: #f4f1fa;
+
+}
+
 .wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
 }
 
 #keyHead {
@@ -20,22 +24,25 @@ body {
     font-size: 18px;
 }
 
-.keyboard {
-    margin-top: 40px;
-    width: 300px;
-    margin-left: 20px;
-
+#keyboardHidden {
+    display: none;
 }
 
-.keyboard p {
+.keyboardActive {
+    margin-top: 30px;
+    width: 200px;
+    padding-left: 30px;
+}
+
+.keyboardActive p {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 3px;
     font-size: 12px;
     
 }
 
-.keyboard img {
+.keyboardActive img {
     height: 40px;
     
 }
