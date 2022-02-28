@@ -129,6 +129,8 @@ function operates() {
     if (displayValue[0] === percentage) { //special case printing first operand percent operations to the chainDisplay
         if (chainDisplayText.innerText.substring(lastIndexChainDisplay - 2, lastIndexChainDisplay) === '//') { //printing new operations to the chainDisplay after a user deletes the displa
             chainDisplayText.innerHTML = chainDisplayText.innerText + '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
+        } else if (chainDisplayText.innerText.length > 0 ) {
+            chainDisplayText.innerHTML = chainDisplayText.innerText + '%';
         } else {
             chainDisplayText.innerHTML = '<span id="chainDisplayBold">' + displayValue[1] + '%' + '</span>';
         }
@@ -455,15 +457,28 @@ function preEquate() {
 }
 
 //Keyboard control pop-up
-window.addEventListener('keydown', (e) => {
-    if (e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4' || e.key === '5' || e.key === '6' || e.key === '7' || e.key === '8' || e.key === '9' || e.key === '`' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === ')' || e.key === '-' || e.key === '=' || e.key === '/' || e.key === 'x' || e.key === 'Enter' || e.key === 'Escape') {
-        return;
-    } else {
-        document.body.classList.add('keyboard');
-        keyboard[2].removeAttribute('id');
-        keyboard[1].classList.add('keyboardActive');
-        keyboard[2].classList.add('keyboardActive');
-
-    }
+window.addEventListener('click', (e) => {
+    document.body.classList.remove('keyboard');
+    keyboard[1].setAttribute('id', 'keyboardHidden');
+    keyboard[0].classList.remove('keyboardActive');
+    keyboard[1].classList.remove('keyboardActive');
 });
+
+window.addEventListener('keydown', (e) => {
+    if (document.body.classList.contains('keyboard')) {
+        document.body.classList.remove('keyboard');
+        keyboard[1].setAttribute('id', 'keyboardHidden');
+        keyboard[0].classList.remove('keyboardActive');
+        keyboard[1].classList.remove('keyboardActive');
+    } else {
+        if (e.key === '0' || e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4' || e.key === '5' || e.key === '6' || e.key === '7' || e.key === '8' || e.key === '9' || e.key === '`' || e.key === '!' || e.key === '%' || e.key === '^' || e.key === ')' || e.key === '-' || e.key === '=' || e.key === '/' || e.key === 'x' || e.key === 'Enter' || e.key === 'Escape' || e.key === 'Backspace' || e.key === 'Shift') {
+            return;
+        } else {
+            document.body.classList.add('keyboard');
+            keyboard[2].removeAttribute('id');
+            keyboard[1].classList.add('keyboardActive');
+            keyboard[2].classList.add('keyboardActive');
+        }
+    }
+}); 
 
