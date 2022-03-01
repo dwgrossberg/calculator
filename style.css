@@ -29,8 +29,9 @@ body.keyboard{
 }
 
 .keyboardActive {
-    margin-top: 10px;
     width: 250px;
+    height: 615px;
+    margin-top: -30px;
     padding-left: 30px;
 }
 
@@ -51,7 +52,6 @@ body.keyboard{
     align-items: center;
     height: 615px;
     width: 450px;
-    margin-top: 40px;
     border: solid 1px #352a5a;
     border-radius: 5%;
     background-color: #f7f8fa;
