@@ -91,10 +91,6 @@ body.keyboard{
     background-color: #d7c9ac;
 }
 
-.solarDivs:hover .solar1 {
-    background-color: #d1c09f;
-}
-
 .solar1:hover,
 .solar2:hover,
 .solar3:hover,
@@ -107,7 +103,11 @@ body.keyboard{
 .solar10:hover,
 .solar11:hover,
 .solar12:hover {
-    box-shadow: inset .5px .5px 5px #d6c2ae;;
+    box-shadow: inset .5px .5px 3px #d6c2ae;;
+}
+
+.solarDivs:hover .solar1 {
+    background-color: #d1c09f;
 }
 
 .solarDivs:hover .solar2{
